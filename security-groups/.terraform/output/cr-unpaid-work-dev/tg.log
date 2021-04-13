@@ -1,0 +1,480 @@
+[0m[1mdata.terraform_remote_state.vpc: Refreshing state...[0m
+[0m[1mdata.terraform_remote_state.common: Refreshing state...[0m
+[0m[1maws_security_group.cporacle_appservers: Refreshing state... [id=sg-03f78e1d2d2d00fc2][0m
+[0m[1maws_security_group.cporacle_lb: Refreshing state... [id=sg-0d201a74ce719eb4c][0m
+[0m[1maws_security_group.cporacle_db: Refreshing state... [id=sg-01cce4bd4e2959bcf][0m
+[0m[1maws_security_group_rule.cporacle_db_ingress_sql_1433: Refreshing state... [id=sgrule-2360975401][0m
+[0m[1maws_security_group_rule.cporacle_appservers_ingress_rdp: Refreshing state... [id=sgrule-3273477843][0m
+[0m[1maws_security_group_rule.cporacle_appservers_egress_1433_db: Refreshing state... [id=sgrule-1315237201][0m
+[0m[1maws_security_group_rule.cporacle_db_ingress_1433: Refreshing state... [id=sgrule-3129893284][0m
+[0m[1maws_security_group_rule.cporacle_appservers_http_ingress_80: Refreshing state... [id=sgrule-2844422739][0m
+[0m[1maws_security_group_rule.cporacle_lb_https_ingress_443_self: Refreshing state... [id=sgrule-2559140050][0m
+[0m[1maws_security_group_rule.cporacle_lb_http_ingress_80_self: Refreshing state... [id=sgrule-101740322][0m
+[0m[1maws_security_group_rule.cporacle_lb_http_egress_80_appservers: Refreshing state... [id=sgrule-921157132][0m
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  [33m~[0m update in-place
+[0m
+Terraform will perform the following actions:
+
+[1m  # aws_security_group_rule.cporacle_db_ingress_sql_1433[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_security_group_rule" "cporacle_db_ingress_sql_1433" {
+        [1m[0mcidr_blocks[0m[0m       = [
+            "10.161.98.0/28",
+            "10.161.98.16/28",
+            "10.161.98.32/28",
+        ]
+      [33m~[0m [0m[1m[0mdescription[0m[0m       = "cp-oracle-rdp-in-via-bastion" [33m->[0m [0m"cp-oracle-1433-in-via-bastion"
+        [1m[0mfrom_port[0m[0m         = 1433
+        [1m[0mid[0m[0m                = "sgrule-2360975401"
+        [1m[0mipv6_cidr_blocks[0m[0m  = []
+        [1m[0mprefix_list_ids[0m[0m   = []
+        [1m[0mprotocol[0m[0m          = "tcp"
+        [1m[0msecurity_group_id[0m[0m = "sg-01cce4bd4e2959bcf"
+        [1m[0mself[0m[0m              = false
+        [1m[0mto_port[0m[0m           = 1433
+        [1m[0mtype[0m[0m              = "ingress"
+    }
+
+[0m[1mPlan:[0m 0 to add, 1 to change, 0 to destroy.[0m
+[0m
+[1mChanges to Outputs:[0m
+  [33m~[0m [0m[1m[0mcporacle_appservers[0m[0m = {
+        arn                    = "arn:aws:ec2:eu-west-2:964150688482:security-group/sg-03f78e1d2d2d00fc2"
+        description            = "CP-Oracle Application Server Instances Security Group"
+        egress                 = [
+            {
+                cidr_blocks      = []
+                description      = "CP-Oracle Application Servers to DB 1433"
+                from_port        = 1433
+                ipv6_cidr_blocks = []
+                prefix_list_ids  = []
+                protocol         = "tcp"
+                security_groups  = [
+                    "sg-01cce4bd4e2959bcf",
+                ]
+                self             = false
+                to_port          = 1433
+            },
+        ]
+        id                     = "sg-03f78e1d2d2d00fc2"
+      [33m~[0m [0mingress                = [
+          [31m-[0m [0m{
+              [31m-[0m [0mcidr_blocks      = [
+                  [31m-[0m [0m"10.161.98.0/28",
+                  [31m-[0m [0m"10.161.98.16/28",
+                  [31m-[0m [0m"10.161.98.32/28",
+                ]
+              [31m-[0m [0mdescription      = "cp-oracle-rdp-in"
+              [31m-[0m [0mfrom_port        = 3389
+              [31m-[0m [0mipv6_cidr_blocks = []
+              [31m-[0m [0mprefix_list_ids  = []
+              [31m-[0m [0mprotocol         = "tcp"
+              [31m-[0m [0msecurity_groups  = []
+              [31m-[0m [0mself             = false
+              [31m-[0m [0mto_port          = 3389
+            },
+          [32m+[0m [0m{
+              [32m+[0m [0mcidr_blocks      = [
+                  [32m+[0m [0m"10.161.98.0/28",
+                  [32m+[0m [0m"10.161.98.16/28",
+                  [32m+[0m [0m"10.161.98.32/28",
+                ]
+              [32m+[0m [0mdescription      = "cp-oracle-rdp-in-via-bastion"
+              [32m+[0m [0mfrom_port        = 3389
+              [32m+[0m [0mipv6_cidr_blocks = []
+              [32m+[0m [0mprefix_list_ids  = []
+              [32m+[0m [0mprotocol         = "tcp"
+              [32m+[0m [0msecurity_groups  = []
+              [32m+[0m [0mself             = false
+              [32m+[0m [0mto_port          = 3389
+            },
+            {
+                cidr_blocks      = []
+                description      = "CP-Oracle ALB to Application Servers http"
+                from_port        = 80
+                ipv6_cidr_blocks = []
+                prefix_list_ids  = []
+                protocol         = "tcp"
+                security_groups  = [
+                    "sg-0d201a74ce719eb4c",
+                ]
+                self             = false
+                to_port          = 80
+            },
+        ]
+        name                   = "cporacle-appservers"
+        name_prefix            = [90mnull[0m[0m
+        owner_id               = "964150688482"
+        revoke_rules_on_delete = false
+        tags                   = {
+            "Name"                     = "cporacle-appservers"
+            "application"              = "cp-oracle"
+            "autostop-unpaid-work-dev" = "False"
+            "bastion_inventory"        = "dev"
+            "business-unit"            = "hmpps"
+            "environment"              = "unpaid-work-dev"
+            "environment-name"         = "cr-unpaid-work-dev"
+            "infrastructure-support"   = "Digital Studio"
+            "is-production"            = "false"
+            "owner"                    = "Digital Studio"
+            "provisioned-with"         = "Terraform"
+            "region"                   = "eu-west-2"
+            "source-code"              = "https://github.com/ministryofjustice/hmpps-cr-ancillary-network"
+        }
+        timeouts               = [90mnull[0m[0m
+        vpc_id                 = "vpc-0009872b69bf2b5a8"
+    }
+  [33m~[0m [0m[1m[0mcporacle_db[0m[0m         = {
+        arn                    = "arn:aws:ec2:eu-west-2:964150688482:security-group/sg-01cce4bd4e2959bcf"
+        description            = "CP-Oracle RDS Instances Security Group"
+        egress                 = []
+        id                     = "sg-01cce4bd4e2959bcf"
+      [33m~[0m [0mingress                = [
+          [32m+[0m [0m{
+              [32m+[0m [0mcidr_blocks      = [
+                  [32m+[0m [0m"10.161.98.0/28",
+                  [32m+[0m [0m"10.161.98.16/28",
+                  [32m+[0m [0m"10.161.98.32/28",
+                ]
+              [32m+[0m [0mdescription      = "cp-oracle-rdp-in-via-bastion"
+              [32m+[0m [0mfrom_port        = 1433
+              [32m+[0m [0mipv6_cidr_blocks = []
+              [32m+[0m [0mprefix_list_ids  = []
+              [32m+[0m [0mprotocol         = "tcp"
+              [32m+[0m [0msecurity_groups  = []
+              [32m+[0m [0mself             = false
+              [32m+[0m [0mto_port          = 1433
+            },
+            {
+                cidr_blocks      = []
+                description      = "CPOracle Application to MS SQL Server"
+                from_port        = 1433
+                ipv6_cidr_blocks = []
+                prefix_list_ids  = []
+                protocol         = "tcp"
+                security_groups  = [
+                    "sg-03f78e1d2d2d00fc2",
+                ]
+                self             = false
+                to_port          = 1433
+            },
+        ]
+        name                   = "cporacle-db"
+        name_prefix            = [90mnull[0m[0m
+        owner_id               = "964150688482"
+        revoke_rules_on_delete = false
+        tags                   = {
+            "Name"                     = "cporacle-db"
+            "application"              = "cp-oracle"
+            "autostop-unpaid-work-dev" = "False"
+            "bastion_inventory"        = "dev"
+            "business-unit"            = "hmpps"
+            "environment"              = "unpaid-work-dev"
+            "environment-name"         = "cr-unpaid-work-dev"
+            "infrastructure-support"   = "Digital Studio"
+            "is-production"            = "false"
+            "owner"                    = "Digital Studio"
+            "provisioned-with"         = "Terraform"
+            "region"                   = "eu-west-2"
+            "source-code"              = "https://github.com/ministryofjustice/hmpps-cr-ancillary-network"
+        }
+        timeouts               = [90mnull[0m[0m
+        vpc_id                 = "vpc-0009872b69bf2b5a8"
+    }
+    [1m[0mcporacle_lb[0m[0m         = {
+        arn                    = "arn:aws:ec2:eu-west-2:964150688482:security-group/sg-0d201a74ce719eb4c"
+        description            = "CP-Oracle Application Load Balancer Security Group"
+        egress                 = [
+            {
+                cidr_blocks      = []
+                description      = "CP-Oracle ALB to Application Servers http"
+                from_port        = 80
+                ipv6_cidr_blocks = []
+                prefix_list_ids  = []
+                protocol         = "tcp"
+                security_groups  = [
+                    "sg-03f78e1d2d2d00fc2",
+                ]
+                self             = false
+                to_port          = 80
+            },
+        ]
+        id                     = "sg-0d201a74ce719eb4c"
+        ingress                = [
+            {
+                cidr_blocks      = []
+                description      = "CP-Oracle ALB Internal LB http"
+                from_port        = 80
+                ipv6_cidr_blocks = []
+                prefix_list_ids  = []
+                protocol         = "tcp"
+                security_groups  = []
+                self             = true
+                to_port          = 80
+            },
+            {
+                cidr_blocks      = []
+                description      = "CP-Oracle ALB Internal LB https"
+                from_port        = 443
+                ipv6_cidr_blocks = []
+                prefix_list_ids  = []
+                protocol         = "tcp"
+                security_groups  = []
+                self             = true
+                to_port          = 443
+            },
+        ]
+        name                   = "cporacle-lb"
+        name_prefix            = [90mnull[0m[0m
+        owner_id               = "964150688482"
+        revoke_rules_on_delete = false
+        tags                   = {
+            "Name"                     = "cporacle-lb"
+            "application"              = "cp-oracle"
+            "autostop-unpaid-work-dev" = "False"
+            "bastion_inventory"        = "dev"
+            "business-unit"            = "hmpps"
+            "environment"              = "unpaid-work-dev"
+            "environment-name"         = "cr-unpaid-work-dev"
+            "infrastructure-support"   = "Digital Studio"
+            "is-production"            = "false"
+            "owner"                    = "Digital Studio"
+            "provisioned-with"         = "Terraform"
+            "region"                   = "eu-west-2"
+            "source-code"              = "https://github.com/ministryofjustice/hmpps-cr-ancillary-network"
+        }
+        timeouts               = [90mnull[0m[0m
+        vpc_id                 = "vpc-0009872b69bf2b5a8"
+    }[0m
+
+[0m[1mDo you want to perform these actions?[0m
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  [1mEnter a value:[0m [0m
+[0m[1maws_security_group_rule.cporacle_db_ingress_sql_1433: Modifying... [id=sgrule-2360975401][0m[0m
+[0m[1maws_security_group_rule.cporacle_db_ingress_sql_1433: Modifications complete after 1s [id=sgrule-2360975401][0m[0m
+[0m[1m[32m
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+account_id = 964150688482
+cporacle_appservers = {
+  "arn" = "arn:aws:ec2:eu-west-2:964150688482:security-group/sg-03f78e1d2d2d00fc2"
+  "description" = "CP-Oracle Application Server Instances Security Group"
+  "egress" = [
+    {
+      "cidr_blocks" = []
+      "description" = "CP-Oracle Application Servers to DB 1433"
+      "from_port" = 1433
+      "ipv6_cidr_blocks" = []
+      "prefix_list_ids" = []
+      "protocol" = "tcp"
+      "security_groups" = [
+        "sg-01cce4bd4e2959bcf",
+      ]
+      "self" = false
+      "to_port" = 1433
+    },
+  ]
+  "id" = "sg-03f78e1d2d2d00fc2"
+  "ingress" = [
+    {
+      "cidr_blocks" = [
+        "10.161.98.0/28",
+        "10.161.98.16/28",
+        "10.161.98.32/28",
+      ]
+      "description" = "cp-oracle-rdp-in-via-bastion"
+      "from_port" = 3389
+      "ipv6_cidr_blocks" = []
+      "prefix_list_ids" = []
+      "protocol" = "tcp"
+      "security_groups" = []
+      "self" = false
+      "to_port" = 3389
+    },
+    {
+      "cidr_blocks" = []
+      "description" = "CP-Oracle ALB to Application Servers http"
+      "from_port" = 80
+      "ipv6_cidr_blocks" = []
+      "prefix_list_ids" = []
+      "protocol" = "tcp"
+      "security_groups" = [
+        "sg-0d201a74ce719eb4c",
+      ]
+      "self" = false
+      "to_port" = 80
+    },
+  ]
+  "name" = "cporacle-appservers"
+  "owner_id" = "964150688482"
+  "revoke_rules_on_delete" = false
+  "tags" = {
+    "Name" = "cporacle-appservers"
+    "application" = "cp-oracle"
+    "autostop-unpaid-work-dev" = "False"
+    "bastion_inventory" = "dev"
+    "business-unit" = "hmpps"
+    "environment" = "unpaid-work-dev"
+    "environment-name" = "cr-unpaid-work-dev"
+    "infrastructure-support" = "Digital Studio"
+    "is-production" = "false"
+    "owner" = "Digital Studio"
+    "provisioned-with" = "Terraform"
+    "region" = "eu-west-2"
+    "source-code" = "https://github.com/ministryofjustice/hmpps-cr-ancillary-network"
+  }
+  "vpc_id" = "vpc-0009872b69bf2b5a8"
+}
+cporacle_db = {
+  "arn" = "arn:aws:ec2:eu-west-2:964150688482:security-group/sg-01cce4bd4e2959bcf"
+  "description" = "CP-Oracle RDS Instances Security Group"
+  "egress" = []
+  "id" = "sg-01cce4bd4e2959bcf"
+  "ingress" = [
+    {
+      "cidr_blocks" = [
+        "10.161.98.0/28",
+        "10.161.98.16/28",
+        "10.161.98.32/28",
+      ]
+      "description" = "cp-oracle-rdp-in-via-bastion"
+      "from_port" = 1433
+      "ipv6_cidr_blocks" = []
+      "prefix_list_ids" = []
+      "protocol" = "tcp"
+      "security_groups" = []
+      "self" = false
+      "to_port" = 1433
+    },
+    {
+      "cidr_blocks" = []
+      "description" = "CPOracle Application to MS SQL Server"
+      "from_port" = 1433
+      "ipv6_cidr_blocks" = []
+      "prefix_list_ids" = []
+      "protocol" = "tcp"
+      "security_groups" = [
+        "sg-03f78e1d2d2d00fc2",
+      ]
+      "self" = false
+      "to_port" = 1433
+    },
+  ]
+  "name" = "cporacle-db"
+  "owner_id" = "964150688482"
+  "revoke_rules_on_delete" = false
+  "tags" = {
+    "Name" = "cporacle-db"
+    "application" = "cp-oracle"
+    "autostop-unpaid-work-dev" = "False"
+    "bastion_inventory" = "dev"
+    "business-unit" = "hmpps"
+    "environment" = "unpaid-work-dev"
+    "environment-name" = "cr-unpaid-work-dev"
+    "infrastructure-support" = "Digital Studio"
+    "is-production" = "false"
+    "owner" = "Digital Studio"
+    "provisioned-with" = "Terraform"
+    "region" = "eu-west-2"
+    "source-code" = "https://github.com/ministryofjustice/hmpps-cr-ancillary-network"
+  }
+  "vpc_id" = "vpc-0009872b69bf2b5a8"
+}
+cporacle_lb = {
+  "arn" = "arn:aws:ec2:eu-west-2:964150688482:security-group/sg-0d201a74ce719eb4c"
+  "description" = "CP-Oracle Application Load Balancer Security Group"
+  "egress" = [
+    {
+      "cidr_blocks" = []
+      "description" = "CP-Oracle ALB to Application Servers http"
+      "from_port" = 80
+      "ipv6_cidr_blocks" = []
+      "prefix_list_ids" = []
+      "protocol" = "tcp"
+      "security_groups" = [
+        "sg-03f78e1d2d2d00fc2",
+      ]
+      "self" = false
+      "to_port" = 80
+    },
+  ]
+  "id" = "sg-0d201a74ce719eb4c"
+  "ingress" = [
+    {
+      "cidr_blocks" = []
+      "description" = "CP-Oracle ALB Internal LB http"
+      "from_port" = 80
+      "ipv6_cidr_blocks" = []
+      "prefix_list_ids" = []
+      "protocol" = "tcp"
+      "security_groups" = []
+      "self" = true
+      "to_port" = 80
+    },
+    {
+      "cidr_blocks" = []
+      "description" = "CP-Oracle ALB Internal LB https"
+      "from_port" = 443
+      "ipv6_cidr_blocks" = []
+      "prefix_list_ids" = []
+      "protocol" = "tcp"
+      "security_groups" = []
+      "self" = true
+      "to_port" = 443
+    },
+  ]
+  "name" = "cporacle-lb"
+  "owner_id" = "964150688482"
+  "revoke_rules_on_delete" = false
+  "tags" = {
+    "Name" = "cporacle-lb"
+    "application" = "cp-oracle"
+    "autostop-unpaid-work-dev" = "False"
+    "bastion_inventory" = "dev"
+    "business-unit" = "hmpps"
+    "environment" = "unpaid-work-dev"
+    "environment-name" = "cr-unpaid-work-dev"
+    "infrastructure-support" = "Digital Studio"
+    "is-production" = "false"
+    "owner" = "Digital Studio"
+    "provisioned-with" = "Terraform"
+    "region" = "eu-west-2"
+    "source-code" = "https://github.com/ministryofjustice/hmpps-cr-ancillary-network"
+  }
+  "vpc_id" = "vpc-0009872b69bf2b5a8"
+}
+db_subnets = [
+  "subnet-06afa0e9b7e1a8aba",
+  "subnet-008008f263d71eee8",
+  "subnet-0b36508a6d914bcae",
+]
+private_subnets = [
+  "subnet-017888d9196dc6677",
+  "subnet-0d8dd34297b498568",
+  "subnet-0b40b5b084e71b439",
+]
+private_zone_id = Z0172977282BF556T2PJT
+private_zone_name = unpaid.work.dev.cr.internal
+ssh_deployer_key = tf-eu-west-2-hmpps-cr-unpaid-work-dev-ssh-key
+tags = {
+  "application" = "cp-oracle"
+  "autostop-unpaid-work-dev" = "False"
+  "bastion_inventory" = "dev"
+  "business-unit" = "hmpps"
+  "environment" = "unpaid-work-dev"
+  "environment-name" = "cr-unpaid-work-dev"
+  "infrastructure-support" = "Digital Studio"
+  "is-production" = "false"
+  "owner" = "Digital Studio"
+  "provisioned-with" = "Terraform"
+  "region" = "eu-west-2"
+  "source-code" = "https://github.com/ministryofjustice/hmpps-cr-ancillary-network"
+}
+vpc_cidr_block = 10.163.80.0/20
+vpc_id = vpc-0009872b69bf2b5a8[0m
