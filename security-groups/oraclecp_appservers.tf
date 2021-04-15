@@ -42,3 +42,15 @@ resource "aws_security_group_rule" "cporacle_appservers_ingress_rdp" {
     local.bastion_cidr,
   )
 }
+
+resource "aws_security_group_rule" "cporacle_appservers_ingress_http_bastion" {
+  security_group_id = aws_security_group.cporacle_appservers.id
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  type              = "ingress"
+  description       = "${local.common_name}-http-in-via-bastion"
+  cidr_blocks = concat(
+    local.bastion_cidr,
+  )
+}

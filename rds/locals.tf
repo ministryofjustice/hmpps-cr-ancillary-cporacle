@@ -23,4 +23,20 @@ locals {
   
   ssh_deployer_key             = data.terraform_remote_state.vpc.outputs.ssh_deployer_key
   
+  
+  family               = var.rds_family
+  # major_engine_version = var.rds_major_engine_version
+  # engine               = var.rds_engine
+  # engine_version       = var.rds_engine_version
+  # instance_class       = var.rds_instance_class
+  # allocated_storage    = var.rds_allocated_storage
+  # character_set_name   = var.rds_character_set_name
+
+  # enabled_cloudwatch_logs_exports = ["alert", "audit", "listener", "trace"]
+
+  # multi_az = var.multi_az
+
+
+
+
 }

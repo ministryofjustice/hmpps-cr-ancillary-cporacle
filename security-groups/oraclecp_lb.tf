@@ -41,3 +41,15 @@ resource "aws_security_group_rule" "cporacle_lb_http_egress_80_appservers" {
   security_group_id        = aws_security_group.cporacle_lb.id
   description              = "CP-Oracle ALB to Application Servers http"
 }
+
+resource "aws_security_group_rule" "cporacle_lb_appservers_ingress_http" {
+  security_group_id = aws_security_group.cporacle_lb.id
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  type              = "ingress"
+  description       = "${local.common_name}-http-in-via-bastion"
+  cidr_blocks = concat(
+    local.bastion_cidr,
+  )
+}

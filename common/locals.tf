@@ -14,15 +14,20 @@ locals {
     data.terraform_remote_state.vpc.outputs.tags,
     {
       "application" = "cp-oracle"
-    }
+    },
+    { 
+      "source-code" = "https://github.com/ministryofjustice/hmpps-cr-ancillary-cporacle" 
+    }  
   )
 
-  private_subnets = [data.terraform_remote_state.vpc.outputs.vpc_private-subnet-az1,
+  private_subnets = [
+    data.terraform_remote_state.vpc.outputs.vpc_private-subnet-az1,
     data.terraform_remote_state.vpc.outputs.vpc_private-subnet-az2,
     data.terraform_remote_state.vpc.outputs.vpc_private-subnet-az3
   ]
 
-  db_subnets = [data.terraform_remote_state.vpc.outputs.vpc_db-subnet-az1,
+  db_subnets = [
+    data.terraform_remote_state.vpc.outputs.vpc_db-subnet-az1,
     data.terraform_remote_state.vpc.outputs.vpc_db-subnet-az2,
     data.terraform_remote_state.vpc.outputs.vpc_db-subnet-az3
   ]
