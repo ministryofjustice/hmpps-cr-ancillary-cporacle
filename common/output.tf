@@ -26,6 +26,10 @@ output "tags" {
   value = local.tags
 }
 
+output "public_subnets" {
+  value = local.public_subnets
+}
+
 output "private_subnets" {
   value = local.private_subnets
 }
@@ -36,4 +40,8 @@ output "db_subnets" {
 
 output "ssh_deployer_key" {
   value = local.ssh_deployer_key
+}
+
+output "alb_access_logs_s3_bucket" {
+  value = aws_s3_bucket.alb_access_logs_s3_bucket
 }

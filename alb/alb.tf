@@ -11,8 +11,9 @@ resource "aws_alb" "alb" {
     }
   )
   access_logs {
-    bucket = local.elb_logs_s3_bucket
-    prefix = "ELB-logs"
+    bucket   = local.elb_logs_s3_bucket
+    prefix   = local.common_name
+    enabled  = true
   }
 }
 

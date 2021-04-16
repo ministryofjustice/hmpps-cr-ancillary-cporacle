@@ -51,7 +51,7 @@ locals {
   alb_security_groups = [data.terraform_remote_state.security_groups.outputs.cporacle_lb.id]
   internal_alb        = false
   idle_timeout        = 60
-  elb_logs_s3_bucket  = "${local.common_name}-lb-s3-bucket" # create bucket and reference
+  elb_logs_s3_bucket  = data.terraform_remote_state.common.outputs.alb_access_logs_s3_bucket.bucket
 
   #------------------------------------
   # ALB Listener

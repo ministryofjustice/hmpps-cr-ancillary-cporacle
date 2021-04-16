@@ -1,6 +1,8 @@
 locals {
 
   common_name = "cp-oracle"
+  environment_name = var.environment_name
+  
   account_id       = data.terraform_remote_state.vpc.outputs.vpc_account_id
   region           = var.region
 
@@ -20,6 +22,11 @@ locals {
     }  
   )
 
+  public_subnets = [data.terraform_remote_state.vpc.outputs.vpc_public-subnet-az1,
+    data.terraform_remote_state.vpc.outputs.vpc_public-subnet-az2,
+    data.terraform_remote_state.vpc.outputs.vpc_public-subnet-az3
+  ]
+  
   private_subnets = [
     data.terraform_remote_state.vpc.outputs.vpc_private-subnet-az1,
     data.terraform_remote_state.vpc.outputs.vpc_private-subnet-az2,
@@ -33,5 +40,8 @@ locals {
   ]
 
   ssh_deployer_key = data.terraform_remote_state.vpc.outputs.ssh_deployer_key
+
+
+  alb_access_logs_s3_bucket_name = "${local.environment_name}-${local.common_name}-alb-access-logs"
 
 }
