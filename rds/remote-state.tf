@@ -1,5 +1,5 @@
 
-data "terraform_remote_state" "cporacle_common" {
+data "terraform_remote_state" "common" {
   backend = "s3"
 
   config = {
@@ -8,6 +8,17 @@ data "terraform_remote_state" "cporacle_common" {
     region = var.region
   }
 }
+
+data "terraform_remote_state" "security_groups" {
+  backend = "s3"
+
+  config = {
+    bucket = var.remote_state_bucket_name
+    key    = "cp-oracle/security-groups/terraform.tfstate"
+    region = var.region
+  }
+}
+
 
 data "terraform_remote_state" "vpc" {
   backend = "s3"

@@ -22,14 +22,6 @@ output "tags" {
   value = local.tags
 }
 
-output "private_subnets" {
-  value = local.private_subnets
-}
-
-output "db_subnets" {
-  value = local.db_subnets
-}
-
-output "ssh_deployer_key" {
-  value = local.ssh_deployer_key
+output "rds_subnets" {
+  value = local.rds_subnets
 }
