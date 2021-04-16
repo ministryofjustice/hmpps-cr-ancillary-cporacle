@@ -1,4 +1,5 @@
-data "terraform_remote_state" "common" {
+
+data "terraform_remote_state" "cporacle_common" {
   backend = "s3"
 
   config = {
