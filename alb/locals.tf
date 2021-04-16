@@ -3,7 +3,7 @@ locals {
   #------------------------------------
   # Common
   #------------------------------------
-  common_name = data.terraform_remote_state.cporacle_common.outputs.common_name
+  common_name = data.terraform_remote_state.common.outputs.common_name
 
   environment_name = var.environment_name
 
@@ -25,7 +25,12 @@ locals {
   strategic_public_zone_name = data.terraform_remote_state.core_vpc.outputs.strategic_public_zone_name # 
   # strategic_public_ssl_arn   = data.terraform_remote_state.core_vpc.outputs.strategic_public_ssl_arn   # 
 
-  tags = data.terraform_remote_state.cporacle_common.outputs.tags
+  tags = data.terraform_remote_state.common.outputs.tags
+
+  public_subnets = [data.terraform_remote_state.core_vpc.outputs.vpc_public-subnet-az1,
+    data.terraform_remote_state.core_vpc.outputs.vpc_public-subnet-az2,
+    data.terraform_remote_state.core_vpc.outputs.vpc_public-subnet-az3
+  ]
 
   private_subnets = [data.terraform_remote_state.core_vpc.outputs.vpc_private-subnet-az1,
     data.terraform_remote_state.core_vpc.outputs.vpc_private-subnet-az2,
@@ -40,49 +45,31 @@ locals {
   #------------------------------------
   # ALB
   #------------------------------------
-  # alb_name            = "${local.common_name}-lb"
-  # alb_path            = "/"
-  # alb_subnets         = local.private_subnets
-  # alb_security_groups = [data.terraform_remote_state.cporacle_security_groups.outputs.cporacle_lb.id]
-  # internal_alb        = true
-  # idle_timeout        = 60
-  # elb_logs_s3_bucket  = "${local.common_name}-lb-s3-bucket" # create bucket and reference
+  alb_name            = "${local.common_name}-lb"
+  alb_path            = "/"
+  alb_subnets         = local.public_subnets
+  alb_security_groups = [data.terraform_remote_state.security_groups.outputs.cporacle_lb.id]
+  internal_alb        = false
+  idle_timeout        = 60
+  elb_logs_s3_bucket  = "${local.common_name}-lb-s3-bucket" # create bucket and reference
 
   #------------------------------------
   # ALB Listener
   #------------------------------------
-  # alb_listener_port            = 443
-  # alb_listener_protocol        = "HTTPS"
-  # alb_listener_ssl_policy      = "ELBSecurityPolicy-2016-08"
-  # alb_listener_certificate_arn = data.terraform_remote_state.core_vpc.outputs.strategic_public_ssl_arn[0]
-  # # priority = ""
-
-  # #------------------------------------
-  # # Target Group
-  # #------------------------------------
-  # target_group_name   = "${local.common_name}-app-asg-target-group"
-  # target_group_sticky = false
-
-  # health_check_target_group_path = "/"
-
-  # target_group_port = 80
-
-  # svc_port = 80
+  alb_listener_port            = 443
+  alb_listener_protocol        = "HTTPS"
+  alb_listener_ssl_policy      = "ELBSecurityPolicy-2016-08"
+  alb_listener_certificate_arn = data.terraform_remote_state.core_vpc.outputs.strategic_public_ssl_arn[0]
+  # priority = ""
 
   #------------------------------------
-  #ASG
+  # Target Group
   #------------------------------------
-  ec2_instance_profile = data.terraform_remote_state.cporacle_iam.outputs.iam_instance_profile_cp_oracle
-  cporacle_asg_props = {
-    asg_name              = "${local.common_name}-app"
-    launch_template_name  = "${local.common_name}-app"
-    ami_id                = "ami-07c04e88f232dc18a"
-    ami_image_tag_version = "0.61.0"
-    instance_type         = "t3.large"
-    ebs_volume_size       = 60
-  }
+  target_group_name   = "${local.common_name}-asg-target-group"
+  target_group_sticky = false
 
-  asg_security_groups = [data.terraform_remote_state.cporacle_security_groups.outputs.cporacle_appservers.id]
-
-  ssh_deployer_key = data.terraform_remote_state.core_vpc.outputs.ssh_deployer_key
+  health_check_target_group_path = "/"
+  target_group_port = 80
+  svc_port = 80
+ 
 }

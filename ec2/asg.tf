@@ -14,7 +14,7 @@ resource "null_resource" "cporacle_aws_launch_template_userdata_rendered" {
   }
 }
 
-resource "aws_launch_template" "cporacle" {
+resource "aws_launch_template" "cporacle_app" {
 
   name        = local.cporacle_asg_props["launch_template_name"]
   description = "Windows CP Oracle Instance Launch Template"
@@ -81,9 +81,9 @@ resource "aws_launch_template" "cporacle" {
   # }
 }
 
-resource "aws_autoscaling_group" "cporacle" {
+resource "aws_autoscaling_group" "cporacle_app" {
 
-  name = "${local.environment_name}-${local.common_name}-asg"
+  name = local.cporacle_asg_props["asg_name"]
 
   vpc_zone_identifier = local.private_subnets
 
@@ -94,7 +94,7 @@ resource "aws_autoscaling_group" "cporacle" {
   health_check_type         = "ELB"
 
   launch_template {
-    id      = aws_launch_template.cporacle.id
+    id      = aws_launch_template.cporacle_app.id
     version = "$Latest"
   }
 
@@ -111,18 +111,18 @@ resource "aws_autoscaling_group" "cporacle" {
 
   #   suspended_processes = local.cporacle_asg_suspended_processes
 
-  tags = data.null_data_source.cporacle_asg_tags.*.outputs
+  tags = data.null_data_source.cporacle_app_asg_tags.*.outputs
 }
 
 
 # Hack to merge additional tag into existing map and convert to list for use with asg tags input
-data "null_data_source" "cporacle_asg_tags" {
+data "null_data_source" "cporacle_app_asg_tags" {
   count = length(
     keys(
       merge(
         local.tags,
         {
-          "Name" = "${local.environment_name}-${local.common_name}-asg"
+          "Name" = local.cporacle_asg_props["asg_name"]
         },
       ),
     ),
@@ -134,7 +134,7 @@ data "null_data_source" "cporacle_asg_tags" {
         merge(
           local.tags,
           {
-            "Name" = "${local.environment_name}-${local.common_name}-cporacle-asg"
+            "Name" = local.cporacle_asg_props["asg_name"]
           },
         ),
       ),
@@ -145,7 +145,7 @@ data "null_data_source" "cporacle_asg_tags" {
         merge(
           local.tags,
           {
-            "Name" = "${local.environment_name}-${local.common_name}-cporacle-asg"
+            "Name" = local.cporacle_asg_props["asg_name"]
           },
         ),
       ),
