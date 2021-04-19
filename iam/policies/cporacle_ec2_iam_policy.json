@@ -51,6 +51,15 @@
                 "acm:ListCertificates"
             ],
             "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Sid": "RDSDescribeInstances",
+            "Action": [
+                "rds:DescribeDBInstances"
+            ],
+            "Resource": "arn:aws:rds:eu-west-2:964150688482:db:cporacle"
         }
     ]
 }
+ 
