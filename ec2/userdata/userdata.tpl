@@ -9,9 +9,9 @@ Start-Process -FilePath $env:USERPROFILE\Desktop\SSMAgent_latest.exe -ArgumentLi
 Write-Output "------------------------------------"
 Write-Output "Install IIS Webserver, .NET Framework 4.5"
 Write-Output "------------------------------------"
-# Install-WindowsFeature -name Web-Server -IncludeManagementTools
-# Install-WindowsFeature Net-Framework-45-Features
-# Get-WindowsFeature | Where { $_.InstallState -eq "Installed" } 
+Install-WindowsFeature -name Web-Server -IncludeManagementTools
+Install-WindowsFeature Net-Framework-45-Features
+Get-WindowsFeature | Where { $_.InstallState -eq "Installed" } | Format-Table 
 
 #Import-Module Carbon 
 
