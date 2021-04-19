@@ -58,13 +58,13 @@ variable "rds_username" {
 
 variable "rds_random_password_length" {
   description = ""
-  default = 16
-  type = number
+  default     = 16
+  type        = number
 }
 
 variable "rds_create_random_password" {
   description = ""
-  type = bool
+  type        = bool
 }
 
 variable "rds_storage_type" {
