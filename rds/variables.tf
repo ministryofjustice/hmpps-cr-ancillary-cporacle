@@ -11,13 +11,13 @@ variable "environment_name" {
 
 # PARAMETER GROUP
 variable "parameters" {
-  default = []
-  type    = list(string)
+  description = "A list of DB parameter maps to apply"
+  default     = []
 }
 
 # DB option group
 variable "options" {
-  type        = list(string)
+  type        = list
   description = "A list of Options to apply."
   default     = []
 }
@@ -46,10 +46,6 @@ variable "rds_allocated_storage" {
 
 variable "rds_max_allocated_storage" {
   description = "The max allocated storage in gigabytes"
-}
-
-variable "rds_name" {
-  description = ""
 }
 
 variable "rds_username" {
@@ -198,4 +194,8 @@ variable "rds_deletion_protection" {
 }
 variable "rds_options" {
   description = ""
+}
+
+variable "rds_delete_automatic_backups" {
+  type = bool
 }

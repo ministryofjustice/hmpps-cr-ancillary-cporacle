@@ -43,5 +43,5 @@ locals {
 
 
   alb_access_logs_s3_bucket_name = "${local.environment_name}-${local.common_name}-alb-access-logs"
-
+  artifacts_s3_bucket_name = "${local.environment_name}-${local.common_name}-artifacts"
 }

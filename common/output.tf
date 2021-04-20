@@ -45,3 +45,7 @@ output "ssh_deployer_key" {
 output "alb_access_logs_s3_bucket" {
   value = aws_s3_bucket.alb_access_logs_s3_bucket
 }
+
+output "cporacle_artifacts_s3_bucket" {
+  value = aws_s3_bucket.cporacle_artifacts
+}

@@ -25,3 +25,19 @@ output "tags" {
 output "rds_subnets" {
   value = local.rds_subnets
 }
+
+output "kms_key" {
+  value = module.kms_key
+}
+
+output "db_subnet_group" {
+  value = aws_db_subnet_group.cporacle
+}
+
+output "db_parameter_group" {
+  value = aws_db_parameter_group.cporacle
+}
+
+output "db_option_group" {
+  value = aws_db_option_group.cporacle
+}

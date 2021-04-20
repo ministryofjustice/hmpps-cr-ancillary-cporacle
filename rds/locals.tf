@@ -24,7 +24,6 @@ locals {
   rds_max_allocated_storage = var.rds_max_allocated_storage
   rds_storage_encrypted     = var.rds_storage_encrypted
 
-  rds_name                   = var.rds_name
   rds_username               = var.rds_username
   rds_create_random_password = false
   rds_random_password_length = false
@@ -41,22 +40,58 @@ locals {
 
   rds_vpc_security_group_ids = [data.terraform_remote_state.security_groups.outputs.cporacle_db.id]
 
-
   rds_maintenance_window              = var.rds_maintenance_window
   rds_backup_window                   = var.rds_backup_window
   rds_enabled_cloudwatch_logs_exports = var.rds_enabled_cloudwatch_logs_exports
 
-  rds_backup_retention_period = var.rds_backup_retention_period
-  rds_skip_final_snapshot     = var.rds_skip_final_snapshot
-  rds_copy_tags_to_snapshot   = var.rds_copy_tags_to_snapshot
-  rds_deletion_protection     = var.rds_deletion_protection
+  rds_backup_retention_period  = var.rds_backup_retention_period
+  rds_skip_final_snapshot      = var.rds_skip_final_snapshot
+  rds_copy_tags_to_snapshot    = var.rds_copy_tags_to_snapshot
+  rds_deletion_protection      = var.rds_deletion_protection
+  rds_delete_automatic_backups = var.rds_delete_automatic_backups
 
   rds_performance_insights_enabled          = var.rds_performance_insights_enabled
   rds_performance_insights_retention_period = var.rds_performance_insights_retention_period
-  rds_create_monitoring_role                = var.rds_create_monitoring_role
+  rds_monitoring_role_arn                   = data.terraform_remote_state.iam.outputs.rds_monitoring_role.iamrole_arn
   rds_monitoring_interval                   = var.rds_monitoring_interval
 
-  rds_options                   = var.rds_options
+  rds_native_sql_backups_iam_role_arn = data.terraform_remote_state.iam.outputs.cporacle_native_sql_backups_iam_role.arn
+
+  # rds_options                   = var.rds_options
+
+  #------------------------------------------------------------------------------------------------
+  # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.SQLServer.Options.html
+  #------------------------------------------------------------------------------------------------
+  rds_options = [
+    # {
+    #   option_name = "Timezone"
+
+    #   option_settings = [
+    #     {
+    #       name  = "TIME_ZONE"
+    #       value = "UTC"
+    #     },
+    #   ]
+    # },
+    {
+      option_name = "SQLSERVER_BACKUP_RESTORE"
+
+      option_settings = [
+        {
+          name  = "IAM_ROLE_ARN"
+          value = local.rds_native_sql_backups_iam_role_arn
+        },
+      ]
+    },
+    {
+      option_name = "TDE"
+
+      option_settings = [
+        
+      ]
+    },
+  ]
+
   rds_create_db_parameter_group = var.rds_create_db_parameter_group
   rds_parameters                = var.rds_parameters
   rds_license_model             = var.rds_license_model
@@ -72,4 +107,6 @@ locals {
   rds_allow_auto_minor_version_upgrade    = var.rds_allow_auto_minor_version_upgrade
   rds_apply_immediately                   = var.rds_apply_immediately
 
+  rds_db_identity = "admin"
+  rds_db_password = "rgefdberfbtrebn134345"
 }
