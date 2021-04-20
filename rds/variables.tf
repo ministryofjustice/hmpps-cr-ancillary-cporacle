@@ -9,6 +9,10 @@ variable "environment_name" {
   type = string
 }
 
+variable "project_name" {
+  type = string
+}
+
 # PARAMETER GROUP
 variable "parameters" {
   description = "A list of DB parameter maps to apply"

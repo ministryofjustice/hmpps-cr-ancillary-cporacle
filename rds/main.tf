@@ -142,10 +142,24 @@ resource "aws_db_option_group" "cporacle" {
   )
 }
 
+#-------------------------------------------------------------
+## Getting the rds db password
+#-------------------------------------------------------------
+data "aws_ssm_parameter" "db_password" {
+  name = "/${local.environment_name}/${local.project_name}/${local.common_name}/rds/rds_master_password"
+}
+
+data "aws_kms_key" "by_alias_arn" {
+  key_id = "arn:aws:kms:eu-west-2:${local.account_id}:alias/aws/rds"
+}
+
 resource "aws_db_instance" "cporacle" {
+  identifier                 = "${local.common_name}-native-backup-restore"
   allocated_storage          = local.rds_allocated_storage
   apply_immediately          = local.rds_apply_immediately
   auto_minor_version_upgrade = local.rds_allow_auto_minor_version_upgrade
+  backup_retention_period    = local.rds_backup_retention_period
+  enabled_cloudwatch_logs_exports = local.rds_enabled_cloudwatch_logs_exports
   copy_tags_to_snapshot      = local.rds_copy_tags_to_snapshot
   db_subnet_group_name       = aws_db_subnet_group.cporacle.name
   delete_automated_backups   = local.rds_delete_automatic_backups
@@ -158,13 +172,14 @@ resource "aws_db_instance" "cporacle" {
   monitoring_interval        = local.rds_monitoring_interval
   monitoring_role_arn        = local.rds_monitoring_role_arn
   multi_az                   = local.rds_multi_az
-  # name                       = upper(local.rds_name)
   option_group_name          = aws_db_option_group.cporacle.name
   parameter_group_name       = aws_db_parameter_group.cporacle.name
-  password                   = local.rds_db_password
-  # performance_insights_enabled = local.rds_performance_insights_enabled
-  # performance_insights_kms_key_id = local.rds_performance_insights_retention_period
-  # performance_insights_retention_period
+  password                   = data.aws_ssm_parameter.db_password.value
+  
+  performance_insights_enabled          = local.rds_performance_insights_enabled
+  performance_insights_kms_key_id       = data.aws_kms_key.by_alias_arn.arn
+  performance_insights_retention_period = local.rds_performance_insights_retention_period
+
   publicly_accessible    = local.rds_publicly_accessible
   skip_final_snapshot    = local.rds_skip_final_snapshot
   storage_type           = local.rds_storage_type
@@ -172,13 +187,19 @@ resource "aws_db_instance" "cporacle" {
   timezone               = local.rds_timezone
   username               = local.rds_db_identity
   vpc_security_group_ids = local.rds_vpc_security_group_ids
+
+  tags = merge(local.tags,
+              {
+                "Name" = "${local.common_name}-native-sql"
+              }
+  )
 }
 
-# resource "aws_db_instance_role_association" "rds_cporacle" {
-#   db_instance_identifier = aws_db_instance.cporacle.id
-#   feature_name           = "S3_INTEGRATION"
-#   role_arn               = aws_iam_role.example.arn
-# }
+resource "aws_db_instance_role_association" "rds_cporacle" {
+  db_instance_identifier = aws_db_instance.cporacle.id
+  feature_name           = "S3_INTEGRATION"
+  role_arn               = local.rds_native_sql_backups_iam_role_arn
+}
 
 ############################################
 # CREATE DB INSTANCE
