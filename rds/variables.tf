@@ -196,6 +196,7 @@ variable "rds_performance_insights_enabled" {
 variable "rds_deletion_protection" {
   description = ""
 }
+
 variable "rds_options" {
   description = ""
 }

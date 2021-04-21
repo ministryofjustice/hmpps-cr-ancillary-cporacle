@@ -3,14 +3,6 @@ terraform {
   backend "s3" {
   }
 }
-
-#-------------------------------------------------------------
-## Getting the rds db password
-#-------------------------------------------------------------
-# data "aws_ssm_parameter" "db_password" {
-#   name = "/${local.environment_name}/${local.common_name}/cporacle_rds_admin_password"
-# }
-
 ############################################
 # KMS KEY GENERATION - FOR ENCRYPTION
 ############################################
@@ -22,30 +14,18 @@ module "kms_key" {
 }
 
 #-------------------------------------------------------------
-### IAM ROLE FOR RDS
+## Getting the rds db password
 #-------------------------------------------------------------
-# module "rds_monitoring_role" {
-#   source     = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git//modules//iam//role?ref=terraform-0.12"
-#   rolename   = "${local.common_name}-monitoring"
-#   policyfile = "rds_monitoring.json"
-# }
+data "aws_ssm_parameter" "rds_master_password" {
+  name = "/${local.environment_name}/${local.project_name}/cporacle/rds/rds_master_password"
+}
 
-# resource "aws_iam_role_policy_attachment" "enhanced_monitoring" {
-#   role       = module.rds_monitoring_role.iamrole_name
-#   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
-# }
-
-############################################
-# CREATE DB SUBNET GROUP
-############################################
-# module "db_subnet_group" {
-#   source      = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git//modules//rds//db_subnet_group?ref=terraform-0.12"
-#   create      = true
-#   identifier  = local.common_name
-#   name_prefix = "${local.common_name}-"
-#   subnet_ids  = local.rds_subnets
-#   tags        = local.tags
-# }
+#-------------------------------------------------------------
+## rds kms encryption
+#-------------------------------------------------------------
+data "aws_kms_key" "by_alias_arn" {
+  key_id = "arn:aws:kms:eu-west-2:${local.account_id}:alias/aws/rds"
+}
 
 resource "aws_db_subnet_group" "cporacle" {
   name_prefix = "${local.common_name}-"
@@ -57,19 +37,6 @@ resource "aws_db_subnet_group" "cporacle" {
     map("Name", format("%s", local.common_name))
   )
 }
-
-############################################
-# CREATE PARAMETER GROUP
-############################################
-# module "db_parameter_group" {
-#   source      = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git//modules//rds//db_parameter_group?ref=terraform-0.12"
-#   create      = true
-#   identifier  = local.common_name
-#   name_prefix = "${local.common_name}-"
-#   family      = local.rds_family
-#   parameters  = local.rds_parameters
-#   tags        = local.tags
-# }
 
 resource "aws_db_parameter_group" "cporacle" {
   name_prefix = "${local.common_name}-"
@@ -95,21 +62,6 @@ resource "aws_db_parameter_group" "cporacle" {
     create_before_destroy = true
   }
 }
-
-############################################
-# CREATE DB OPTIONS
-############################################
-# module "db_option_group" {
-#   source                   = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git//modules//rds//db_option_group?ref=terraform-0.12"
-#   create                   = true
-#   identifier               = local.common_name
-#   name_prefix              = "${local.common_name}-"
-#   option_group_description = "${local.common_name} options group"
-#   engine_name              = local.rds_engine
-#   major_engine_version     = local.rds_major_engine_version
-#   options                  = local.rds_options
-#   tags                     = local.tags
-# }
 
 resource "aws_db_option_group" "cporacle" {
   name_prefix              = "${local.common_name}-"
@@ -142,20 +94,12 @@ resource "aws_db_option_group" "cporacle" {
   )
 }
 
-#-------------------------------------------------------------
-## Getting the rds db password
-#-------------------------------------------------------------
-data "aws_ssm_parameter" "db_password" {
-  name = "/${local.environment_name}/${local.project_name}/${local.common_name}/rds/rds_master_password"
-}
-
-data "aws_kms_key" "by_alias_arn" {
-  key_id = "arn:aws:kms:eu-west-2:${local.account_id}:alias/aws/rds"
-}
-
 resource "aws_db_instance" "cporacle" {
   identifier                 = "${local.common_name}-native-backup-restore"
+  
   allocated_storage          = local.rds_allocated_storage
+  max_allocated_storage      = local.rds_max_allocated_storage 
+  
   apply_immediately          = local.rds_apply_immediately
   auto_minor_version_upgrade = local.rds_allow_auto_minor_version_upgrade
   backup_retention_period    = local.rds_backup_retention_period
@@ -174,8 +118,8 @@ resource "aws_db_instance" "cporacle" {
   multi_az                   = local.rds_multi_az
   option_group_name          = aws_db_option_group.cporacle.name
   parameter_group_name       = aws_db_parameter_group.cporacle.name
-  password                   = data.aws_ssm_parameter.db_password.value
-  
+  password                   = data.aws_ssm_parameter.rds_master_password.value
+
   performance_insights_enabled          = local.rds_performance_insights_enabled
   performance_insights_kms_key_id       = data.aws_kms_key.by_alias_arn.arn
   performance_insights_retention_period = local.rds_performance_insights_retention_period
@@ -200,78 +144,3 @@ resource "aws_db_instance_role_association" "rds_cporacle" {
   feature_name           = "S3_INTEGRATION"
   role_arn               = local.rds_native_sql_backups_iam_role_arn
 }
-
-############################################
-# CREATE DB INSTANCE
-############################################
-#  module "db_instance" {
-#   source            = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git//modules//rds//db_instance?ref=terraform-0.12"
-#   create            = true
-#   identifier        = local.common_name
-#   engine            = local.engine
-#   engine_version    = local.engine_version
-#   instance_class    = local.instance_class
-#   allocated_storage = local.allocated_storage
-#   storage_type      = local.storage_type
-#   storage_encrypted = local.storage_encrypted
-#   kms_key_id        = module.kms_key.kms_arn
-#   license_model     = var.license_model
-
-#   name              = upper(local.db_identity)
-#   username          = local.db_identity
-#   password          = local.db_password
-#   port              = var.port
-# #   iam_database_authentication_enabled = var.iam_database_authentication_enabled
-
-# #   replicate_source_db = var.replicate_source_db
-
-# #   snapshot_identifier = var.snapshot_identifier
-
-# #   vpc_security_group_ids = local.security_group_ids
-
-# #   db_subnet_group_name = module.db_subnet_group.db_subnet_group_id
-# #   parameter_group_name = aws_db_parameter_group.iaps_parameter_group.name
-# #   option_group_name    = aws_db_option_group.iaps_option_group.name
-# #   multi_az             = local.multi_az 
-# #   iops                 = var.iops
-# #   publicly_accessible  = var.publicly_accessible
-
-# #   allow_major_version_upgrade = var.allow_major_version_upgrade
-# #   auto_minor_version_upgrade  = var.auto_minor_version_upgrade
-# #   apply_immediately           = true
-#   maintenance_window          = local.maintenance_window
-# #   skip_final_snapshot         = var.skip_final_snapshot
-# #   copy_tags_to_snapshot       = var.copy_tags_to_snapshot
-# #   final_snapshot_identifier   = "${local.common_name}-final-snapshot"
-
-#   backup_retention_period = local.rds_backup_retention_period
-#   backup_window           = local.backup_window
-
-# #   monitoring_interval  = var.rds_monitoring_interval
-# #   monitoring_role_arn  = module.rds_monitoring_role.iamrole_arn
-# #   monitoring_role_name = module.rds_monitoring_role.iamrole_name
-
-# #   timezone           = var.timezone
-# #   character_set_name = local.character_set_name
-
-#   tags = merge(
-#     local.tags,
-#     {
-#       "Name" = upper(local.db_identity)
-#     }
-#   )
-
-#   enabled_cloudwatch_logs_exports = local.enabled_cloudwatch_logs_exports
-# }
-
-###############################################
-# Create route53 entry for rds
-###############################################
-
-# resource "aws_route53_record" "rds_dns_entry" {
-#   name    = "${local.dns_name}.${local.internal_domain}"
-#   type    = "CNAME"
-#   zone_id = local.private_zone_id
-#   ttl     = 300
-#   records = [module.db_instance.db_instance_address]
-# }

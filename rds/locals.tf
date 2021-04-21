@@ -1,6 +1,6 @@
 locals {
 
-  project_name     = var.project 
+  project_name     = var.project_name 
   common_name      = data.terraform_remote_state.common.outputs.common_name
   environment_name = var.environment_name
   account_id       = data.terraform_remote_state.vpc.outputs.vpc_account_id
@@ -13,6 +13,9 @@ locals {
   private_zone_name = data.terraform_remote_state.vpc.outputs.private_zone_name # unpaid.work.dev.cr.internal
 
   tags = data.terraform_remote_state.common.outputs.tags
+
+  # required to add policy to ec2 instance role to allow instances to get RDS endpoint for this instance
+  ec2_instance_role_name = data.terraform_remote_state.iam.outputs.iam_role_cp_oracle.iamrole_name
 
   rds_engine               = var.rds_engine
   rds_engine_version       = var.rds_engine_version
