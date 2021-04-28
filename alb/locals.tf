@@ -15,7 +15,7 @@ locals {
 
   private_zone_id   = data.terraform_remote_state.core_vpc.outputs.private_zone_id   # Z0172977282BF556T2PJT
   private_zone_name = data.terraform_remote_state.core_vpc.outputs.private_zone_name # unpaid.work.dev.cr.internal
-  
+
   # public_zone_id    = data.terraform_remote_state.core_vpc.outputs.public_zone_id     # Z00582952AVV2DR3TYHKC
   # public_zone_name  = data.terraform_remote_state.core_vpc.outputs.public_zone_name   # unpaid.work.dev.cr.probation.service.justice.gov.uk
   # public_ssl_arn    = data.terraform_remote_state.core_vpc.outputs.public_ssl_arn     # 
@@ -69,7 +69,7 @@ locals {
   target_group_sticky = false
 
   health_check_target_group_path = "/"
-  target_group_port = 80
-  svc_port = 80
- 
+  target_group_port              = 80
+  svc_port                       = 80
+
 }

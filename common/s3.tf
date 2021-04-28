@@ -20,21 +20,21 @@ resource "aws_s3_bucket" "alb_access_logs_s3_bucket" {
     rule {
       apply_server_side_encryption_by_default {
         # kms_master_key_id = data.aws_kms_alias.s3.id
-        sse_algorithm     = "aws:kms"
+        sse_algorithm = "aws:kms"
       }
     }
   }
 
   tags = local.tags
-  
+
 }
 
 resource "aws_s3_bucket_public_access_block" "alb_access_logs_s3_bucket_public_access_block" {
   bucket = local.alb_access_logs_s3_bucket_name
 
-  block_public_acls   = true
-  block_public_policy = true
-  ignore_public_acls  = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
   restrict_public_buckets = true
 
   depends_on = [
@@ -76,7 +76,7 @@ resource "aws_s3_bucket" "cporacle_artifacts" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_algorithm     = "aws:kms"
+        sse_algorithm = "aws:kms"
       }
     }
   }
@@ -87,9 +87,9 @@ resource "aws_s3_bucket" "cporacle_artifacts" {
 resource "aws_s3_bucket_public_access_block" "cporacle_artifacts_bucket_public_access_block" {
   bucket = local.artifacts_s3_bucket_name
 
-  block_public_acls   = true
-  block_public_policy = true
-  ignore_public_acls  = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
   restrict_public_buckets = true
 
   depends_on = [
