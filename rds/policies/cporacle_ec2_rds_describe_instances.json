@@ -1,0 +1,13 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Sid": "RDSDescribeInstances",
+            "Action": [
+                "rds:DescribeDBInstances"
+            ],
+            "Resource": "arn:aws:rds:eu-west-2:${account_id}:db:${dbidentifier}"
+        }
+    ]
+}
