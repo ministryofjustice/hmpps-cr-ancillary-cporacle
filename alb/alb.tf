@@ -65,4 +65,3 @@ resource "aws_autoscaling_attachment" "cporacle" {
   alb_target_group_arn   = aws_alb_target_group.alb_target_group.arn
   autoscaling_group_name = data.terraform_remote_state.ec2.outputs.cporacle_app_asg.name
 }
-
