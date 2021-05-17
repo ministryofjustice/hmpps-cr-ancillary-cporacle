@@ -45,3 +45,11 @@ output "aws_route53_record_cporacle" {
 output "aws_route53_record_cporacle_api" {
   value = aws_route53_record.cporacle_api
 }
+
+output "alb_target_group_web" {
+  value = aws_alb_target_group.alb_target_group
+}
+
+output "alb_target_group_api" {
+  value = aws_alb_target_group.alb_target_group_api
+}

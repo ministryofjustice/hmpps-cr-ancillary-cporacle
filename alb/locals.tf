@@ -88,7 +88,7 @@ locals {
   target_group_api_name   = "${local.common_name}-asg-api-target-group"
   target_group_api_sticky = false
 
-  health_check_target_group_api_path = "/"
+  health_check_target_group_api_path = "/karma.html" # update to the new healthcheck endpoint when AMI for API is ready
   target_group_api_port = 80
   api_svc_port = 80
 
