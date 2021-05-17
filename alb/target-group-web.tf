@@ -19,4 +19,3 @@ resource "aws_alb_target_group" "alb_target_group" {
     port                = local.target_group_web_port
   }
 }
-
