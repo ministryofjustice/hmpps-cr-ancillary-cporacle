@@ -19,11 +19,10 @@ resource "aws_alb" "alb" {
 
 resource "aws_alb_listener" "alb_listener_https" {
   load_balancer_arn = aws_alb.alb.arn
-  port              = local.alb_listener_port
-  protocol          = local.alb_listener_protocol
-
-  ssl_policy      = local.alb_listener_ssl_policy
-  certificate_arn = local.alb_listener_certificate_arn
+  port              = local.alb_listener_web_port
+  protocol          = local.alb_listener_web_protocol
+  ssl_policy        = local.alb_listener_web_ssl_policy
+  certificate_arn   = local.alb_listener_web_certificate_arn
 
   default_action {
     type             = "forward"

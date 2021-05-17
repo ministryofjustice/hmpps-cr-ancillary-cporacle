@@ -1,6 +1,6 @@
 data "template_file" "instance_userdata" {
 
-  template = file("userdata/userdata.tpl")
+  template = file("userdata/userdata-website.tpl")
 
   vars = {
     user_ssm_path     = "/${local.environment_name}/cporacle/cporacle_user"
@@ -16,7 +16,7 @@ resource "null_resource" "cporacle_aws_launch_template_userdata_rendered" {
 
 resource "aws_launch_template" "cporacle_app" {
 
-  name        = local.cporacle_asg_props["launch_template_name"]
+  name        = local.launch_template_name
   description = "Windows CP Oracle Instance Launch Template"
 
   block_device_mappings {
@@ -83,7 +83,7 @@ resource "aws_launch_template" "cporacle_app" {
 
 resource "aws_autoscaling_group" "cporacle_app" {
 
-  name = local.cporacle_asg_props["asg_name"]
+  name = local.asg_name
 
   vpc_zone_identifier = local.private_subnets
 
@@ -122,7 +122,7 @@ data "null_data_source" "cporacle_app_asg_tags" {
       merge(
         local.tags,
         {
-          "Name" = local.cporacle_asg_props["asg_name"]
+          "Name" = local.asg_name
         },
       ),
     ),
@@ -134,7 +134,7 @@ data "null_data_source" "cporacle_app_asg_tags" {
         merge(
           local.tags,
           {
-            "Name" = local.cporacle_asg_props["asg_name"]
+            "Name" = local.asg_name
           },
         ),
       ),
@@ -145,7 +145,7 @@ data "null_data_source" "cporacle_app_asg_tags" {
         merge(
           local.tags,
           {
-            "Name" = local.cporacle_asg_props["asg_name"]
+            "Name" = local.asg_name
           },
         ),
       ),

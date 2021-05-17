@@ -66,23 +66,26 @@ locals {
   # health_check_target_group_path = "/"
 
   # target_group_port = 80
-
   # svc_port = 80
 
   #------------------------------------
-  #ASG
+  #ASG - Website
   #------------------------------------
+  asg_name              = "${local.common_name}-app"
+  launch_template_name  = "${local.common_name}-app"
+
+  #------------------------------------
+  #ASG - Web API
+  #------------------------------------
+  asg_api_name              = "${local.common_name}-api"
+  launch_template_api_name  = "${local.common_name}-api"
+
+  # website ASG instance properties
+  cporacle_asg_props   = var.cporacle_asg_props
+  # web api ASG instance properties
+  cporacle_api_asg_props   = var.cporacle_asg_props
+  
   ec2_instance_profile = data.terraform_remote_state.cporacle_iam.outputs.iam_instance_profile_cp_oracle
-  cporacle_asg_props = {
-    asg_name              = "${local.common_name}-app"
-    launch_template_name  = "${local.common_name}-app"
-    ami_id                = "ami-07c04e88f232dc18a"
-    ami_image_tag_version = "0.61.0"
-    instance_type         = "t3.large"
-    ebs_volume_size       = 60
-  }
-
-  asg_security_groups = [data.terraform_remote_state.cporacle_security_groups.outputs.cporacle_appservers.id]
-
-  ssh_deployer_key = data.terraform_remote_state.core_vpc.outputs.ssh_deployer_key
+  asg_security_groups  = [data.terraform_remote_state.cporacle_security_groups.outputs.cporacle_appservers.id]
+  ssh_deployer_key     = data.terraform_remote_state.core_vpc.outputs.ssh_deployer_key
 }
