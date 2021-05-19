@@ -42,11 +42,22 @@ resource "aws_iam_role_policy_attachment" "rds_enhanced_monitoring" {
 #      ] 
 #    }'  
 
+data "aws_kms_key" "aws_s3" {
+  key_id = "alias/aws/s3"
+}
+
 data "template_file" "cporacle_native_sql_backups_iam_policy" {
   template = file("policies/cporacle_native_sql_backups_iam_policy.tpl")
 
   vars = {
     s3_bucket    = local.s3_artifact_bucket
+    kms_key      = data.aws_kms_key.aws_s3.arn # arn:aws:kms:eu-west-2:964150688482:key/f208a9a6-fbf1-4ce2-a4ce-2ccbecfe2dac
+  }
+}
+
+resource "null_resource" "cporacle_native_sql_backups_iam_policy_rendered" {
+  triggers = {
+    json = data.template_file.cporacle_native_sql_backups_iam_policy.rendered
   }
 }
 
@@ -56,21 +67,7 @@ resource "aws_iam_policy" "cporacle_native_sql_backups_iam_policy" {
   description = "CPOracle Policy to Allow RDS to get backup files from S3"
   policy      = data.template_file.cporacle_native_sql_backups_iam_policy.rendered
 }
-
-# aws iam create-role \
-#    --role-name rds-s3-import-role \
-#    --assume-role-policy-document '{
-#      "Version": "2012-10-17",
-#      "Statement": [
-#        {
-#          "Effect": "Allow",
-#          "Principal": {
-#             "Service": "rds.amazonaws.com"
-#           },
-#          "Action": "sts:AssumeRole"
-#        }
-#      ] 
-#    }'       
+     
 resource "aws_iam_role" "cporacle_native_sql_backups_iam_role" {
   name = "cporacle-native-sql-backups-iam-role"
 
@@ -89,10 +86,6 @@ resource "aws_iam_role" "cporacle_native_sql_backups_iam_role" {
 
   tags = local.tags
 }
-
-# aws iam attach-role-policy \
-#    --policy-arn your-policy-arn \
-#    --role-name rds-s3-import-role     
 
 resource "aws_iam_role_policy_attachment" "cporacle_native_sql_backups_iam_role" {
   policy_arn = aws_iam_policy.cporacle_native_sql_backups_iam_policy.arn
