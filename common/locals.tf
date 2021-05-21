@@ -1,10 +1,10 @@
 locals {
 
-  common_name = "cp-oracle"
+  common_name      = "cp-oracle"
   environment_name = var.environment_name
-  
-  account_id       = data.terraform_remote_state.vpc.outputs.vpc_account_id
-  region           = var.region
+
+  account_id = data.terraform_remote_state.vpc.outputs.vpc_account_id
+  region     = var.region
 
   vpc_id         = data.terraform_remote_state.vpc.outputs.vpc_id
   vpc_cidr_block = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
@@ -17,16 +17,16 @@ locals {
     {
       "application" = "cp-oracle"
     },
-    { 
-      "source-code" = "https://github.com/ministryofjustice/hmpps-cr-ancillary-cporacle" 
-    }  
+    {
+      "source-code" = "https://github.com/ministryofjustice/hmpps-cr-ancillary-cporacle"
+    }
   )
 
   public_subnets = [data.terraform_remote_state.vpc.outputs.vpc_public-subnet-az1,
     data.terraform_remote_state.vpc.outputs.vpc_public-subnet-az2,
     data.terraform_remote_state.vpc.outputs.vpc_public-subnet-az3
   ]
-  
+
   private_subnets = [
     data.terraform_remote_state.vpc.outputs.vpc_private-subnet-az1,
     data.terraform_remote_state.vpc.outputs.vpc_private-subnet-az2,
@@ -43,5 +43,5 @@ locals {
 
 
   alb_access_logs_s3_bucket_name = "${local.environment_name}-${local.common_name}-alb-access-logs"
-  artifacts_s3_bucket_name = "${local.environment_name}-${local.common_name}-artifacts"
+  artifacts_s3_bucket_name       = "${local.environment_name}-${local.common_name}-artifacts"
 }

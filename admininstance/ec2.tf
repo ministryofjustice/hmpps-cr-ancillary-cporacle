@@ -25,7 +25,7 @@ resource "aws_instance" "admin_server" {
   iam_instance_profile        = local.ec2_instance_profile
   associate_public_ip_address = false
   vpc_security_group_ids      = local.asg_security_groups
-  key_name = local.ssh_deployer_key
+  key_name                    = local.ssh_deployer_key
 
   volume_tags = merge(
     {
