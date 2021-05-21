@@ -23,6 +23,14 @@
                 "ssm:List*"
             ],
             "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Sid": "allowSESEmailSend",
+            "Action": [
+                "ses:SendEmail"
+            ],
+            "Resource": "*"
         }
     ]
 }

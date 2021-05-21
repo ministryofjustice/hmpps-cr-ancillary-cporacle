@@ -18,3 +18,14 @@ variable "project_name" {
 }
 
 
+variable "cporacle_asg_props" {
+  type = map(string)
+}
+
+variable "cporacle_api_asg_props" {
+  type = map(string)
+}
+
+variable "log_retention" {
+  type = string
+}

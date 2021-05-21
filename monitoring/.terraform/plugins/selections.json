@@ -1,6 +1,18 @@
 {
+  "registry.terraform.io/hashicorp/archive": {
+    "hash": "h1:CIWi5G6ob7p2wWoThRQbOB8AbmFlCzp7Ka81hR3cVp0=",
+    "version": "2.2.0"
+  },
   "registry.terraform.io/hashicorp/aws": {
     "hash": "h1:6tf4jg37RrMHyVCql+fEgAFvX8JiqDognr+lk6rx7To=",
     "version": "2.70.0"
+  },
+  "registry.terraform.io/hashicorp/null": {
+    "hash": "h1:vpC6bgUQoJ0znqIKVFevOdq+YQw42bRq0u+H3nto8nA=",
+    "version": "3.1.0"
+  },
+  "registry.terraform.io/hashicorp/template": {
+    "hash": "h1:94qn780bi1qjrbC3uQtjJh3Wkfwd5+tTtJHOb7KTg9w=",
+    "version": "2.2.0"
   }
 }

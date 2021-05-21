@@ -42,14 +42,17 @@ resource "aws_s3_bucket_public_access_block" "alb_access_logs_s3_bucket_public_a
   ]
 }
 
+# See https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
+# for elb-account-id 
 data "template_file" "alb_access_logs_s3_bucket_policy" {
 
   template = file("policies/s3_access_logs_bucket_policy.tpl")
 
   vars = {
-    account_id  = local.account_id
-    bucket_name = local.alb_access_logs_s3_bucket_name
-    prefix      = local.common_name
+    elb_account_id = "652711504416"
+    account_id     = local.account_id
+    bucket_name    = local.alb_access_logs_s3_bucket_name
+    prefix         = local.common_name
   }
 }
 

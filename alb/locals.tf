@@ -43,7 +43,7 @@ locals {
   ]
 
   #------------------------------------
-  # ALB
+  # ALB - Website
   #------------------------------------
   alb_name            = "${local.common_name}-lb"
   alb_path            = "/"
@@ -53,23 +53,43 @@ locals {
   idle_timeout        = 60
   elb_logs_s3_bucket  = data.terraform_remote_state.common.outputs.alb_access_logs_s3_bucket.bucket
 
-  #------------------------------------
-  # ALB Listener
-  #------------------------------------
-  alb_listener_port            = 443
-  alb_listener_protocol        = "HTTPS"
-  alb_listener_ssl_policy      = "ELBSecurityPolicy-2016-08"
-  alb_listener_certificate_arn = data.terraform_remote_state.core_vpc.outputs.strategic_public_ssl_arn[0]
-  # priority = ""
+  # ALB Listener - Website
+  alb_listener_web_port            = 443
+  alb_listener_web_protocol        = "HTTPS"
+  alb_listener_web_ssl_policy      = "ELBSecurityPolicy-2016-08"
+  alb_listener_web_certificate_arn = data.terraform_remote_state.core_vpc.outputs.strategic_public_ssl_arn[0]
+
+  # ALB Target Group - Website
+  target_group_web_name   = "${local.common_name}-asg-target-group"
+  target_group_web_sticky = false
+
+  health_check_target_group_web_path = "/karma.html"
+  target_group_web_port              = 80
+  web_svc_port                       = 80
 
   #------------------------------------
-  # Target Group
+  # ALB - API
   #------------------------------------
-  target_group_name   = "${local.common_name}-asg-target-group"
-  target_group_sticky = false
+  alb_api_name            = "${local.common_name}-lb-api"
+  alb_api_path            = "/"
+  alb_api_subnets         = local.public_subnets
+  alb_api_security_groups = [data.terraform_remote_state.security_groups.outputs.cporacle_lb.id]
+  api_internal_alb        = false
+  api_idle_timeout        = 60
+  api_elb_logs_s3_bucket  = data.terraform_remote_state.common.outputs.alb_access_logs_s3_bucket.bucket
 
-  health_check_target_group_path = "/"
-  target_group_port              = 80
-  svc_port                       = 80
+  # ALB Listener - API
+  alb_listener_api_port            = 443
+  alb_listener_api_protocol        = "HTTPS"
+  alb_listener_api_ssl_policy      = "ELBSecurityPolicy-2016-08"
+  alb_listener_api_certificate_arn = data.terraform_remote_state.core_vpc.outputs.strategic_public_ssl_arn[0]
+
+  # ALB Target Group - API
+  target_group_api_name   = "${local.common_name}-asg-api-target-group"
+  target_group_api_sticky = false
+
+  health_check_target_group_api_path = "/karma.html" # update to the new healthcheck endpoint when AMI for API is ready
+  target_group_api_port              = 80
+  api_svc_port                       = 80
 
 }

@@ -17,4 +17,6 @@ variable "project_name" {
   type = string
 }
 
-
+variable "log_retention" {
+  type = string
+}

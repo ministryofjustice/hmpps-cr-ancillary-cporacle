@@ -41,3 +41,38 @@ output "cporacle_app_launch_template" {
 output "cporacle_app_asg" {
   value = aws_autoscaling_group.cporacle_app
 }
+
+output "cporacle_log_group_cloudwatch_agent_api" {
+  value = aws_cloudwatch_log_group.cporacle_log_group_cloudwatch_agent_api
+}
+
+output "cporacle_log_group_cporacle_api" {
+  value = aws_cloudwatch_log_group.cporacle_log_group_cporacle_api
+}
+
+output "cporacle_log_group_system_events_api" {
+  value = aws_cloudwatch_log_group.cporacle_log_group_system_events_api
+}
+
+output "cporacle_log_group_application_events_api" {
+  value = aws_cloudwatch_log_group.cporacle_log_group_application_events_api
+}
+
+
+output "cporacle_log_group_cloudwatch_agent" {
+  value = aws_cloudwatch_log_group.cporacle_log_group_cloudwatch_agent
+}
+
+output "cporacle_log_group_cporacle_application" {
+  value = aws_cloudwatch_log_group.cporacle_log_group_cporacle_application
+}
+
+output "cporacle_log_group_system_events" {
+  value = aws_cloudwatch_log_group.cporacle_log_group_system_events
+
+}
+
+output "cporacle_log_group_application_events" {
+  value = aws_cloudwatch_log_group.cporacle_log_group_application_events
+}
+
