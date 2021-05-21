@@ -61,7 +61,7 @@ resource "aws_instance" "admin_server" {
   }
 
   disable_api_termination = false
-  hibernation = false
-  ebs_optimized = true
+  hibernation             = false
+  ebs_optimized           = true
 
 }

@@ -58,15 +58,15 @@ locals {
   alb_listener_web_protocol        = "HTTPS"
   alb_listener_web_ssl_policy      = "ELBSecurityPolicy-2016-08"
   alb_listener_web_certificate_arn = data.terraform_remote_state.core_vpc.outputs.strategic_public_ssl_arn[0]
-  
+
   # ALB Target Group - Website
   target_group_web_name   = "${local.common_name}-asg-target-group"
   target_group_web_sticky = false
 
   health_check_target_group_web_path = "/karma.html"
-  target_group_web_port = 80
-  web_svc_port = 80
- 
+  target_group_web_port              = 80
+  web_svc_port                       = 80
+
   #------------------------------------
   # ALB - API
   #------------------------------------
@@ -83,13 +83,13 @@ locals {
   alb_listener_api_protocol        = "HTTPS"
   alb_listener_api_ssl_policy      = "ELBSecurityPolicy-2016-08"
   alb_listener_api_certificate_arn = data.terraform_remote_state.core_vpc.outputs.strategic_public_ssl_arn[0]
-  
+
   # ALB Target Group - API
   target_group_api_name   = "${local.common_name}-asg-api-target-group"
   target_group_api_sticky = false
 
   health_check_target_group_api_path = "/karma.html" # update to the new healthcheck endpoint when AMI for API is ready
-  target_group_api_port = 80
-  api_svc_port = 80
+  target_group_api_port              = 80
+  api_svc_port                       = 80
 
 }

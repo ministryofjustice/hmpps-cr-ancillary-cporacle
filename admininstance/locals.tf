@@ -39,7 +39,7 @@ locals {
 
   ssh_deployer_key = data.terraform_remote_state.core_vpc.outputs.ssh_deployer_key
 
-  admin_server_count = 2
+  admin_server_count  = 2
   admin_instance_type = "t2.large"
   admin_instance_ami  = "ami-02a6373a5071b0b49" # HMPPS MIS NART ADM Windows Server master 1615546824 (0.46.0)
 

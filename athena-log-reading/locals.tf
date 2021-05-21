@@ -6,7 +6,7 @@ locals {
   region                    = var.region
   tags                      = data.terraform_remote_state.common.outputs.tags
   alb_access_logs_s3_bucket = data.terraform_remote_state.common.outputs.alb_access_logs_s3_bucket.bucket
-  
+
 
   # Athena
   database_name = "cporacle_accesslogs"

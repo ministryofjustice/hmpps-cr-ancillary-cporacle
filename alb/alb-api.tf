@@ -11,9 +11,9 @@ resource "aws_alb" "alb_api" {
     }
   )
   access_logs {
-    bucket   = local.elb_logs_s3_bucket
-    prefix   = "${local.common_name}-api"
-    enabled  = true
+    bucket  = local.elb_logs_s3_bucket
+    prefix  = "${local.common_name}-api"
+    enabled = true
   }
 }
 
@@ -51,8 +51,8 @@ resource "aws_alb_listener" "alb_listener_api_redirect_to_https" {
   protocol          = "HTTP"
 
   default_action {
-    type             = "redirect"
-    
+    type = "redirect"
+
     redirect {
       port        = "443"
       protocol    = "HTTPS"
