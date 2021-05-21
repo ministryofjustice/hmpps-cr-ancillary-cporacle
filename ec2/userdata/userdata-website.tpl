@@ -39,5 +39,6 @@ Get-WindowsFeature | Where { $_.InstallState -eq "Installed" } | Format-Table
 #        & $runtimeconfig\$_
 #    }
 
+# Add code here to pull down the Website Zip File from s3://
 </powershell>
 <persist>true</persist>
