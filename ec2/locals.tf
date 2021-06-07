@@ -84,7 +84,7 @@ locals {
   # website ASG instance properties
   cporacle_asg_props = var.cporacle_asg_props
   # web api ASG instance properties
-  cporacle_api_asg_props = var.cporacle_asg_props
+  cporacle_api_asg_props = var.cporacle_api_asg_props
 
   ec2_instance_profile = data.terraform_remote_state.cporacle_iam.outputs.iam_instance_profile_cp_oracle
   asg_security_groups  = [data.terraform_remote_state.cporacle_security_groups.outputs.cporacle_appservers.id]
