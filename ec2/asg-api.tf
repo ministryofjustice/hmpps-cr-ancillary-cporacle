@@ -93,7 +93,7 @@ resource "aws_autoscaling_group" "cporacle_api" {
   health_check_grace_period = 600
   health_check_type         = "ELB"
 
-  target_group_arns = [local.api_target_group_arn]
+  #target_group_arns = [local.api_target_group_arn]
 
   launch_template {
     id      = aws_launch_template.cporacle_api.id
