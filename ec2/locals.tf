@@ -62,8 +62,8 @@ locals {
   # #------------------------------------
   #target_group_name   = "${local.common_name}-app-asg-target-group"
   #target_group_sticky = false
-  web_target_group_arn = data.terraform_remote_state.alb.outputs.alb_target_group_web["arn"]
-  api_target_group_arn = data.terraform_remote_state.alb.outputs.alb_target_group_api["arn"]
+  #web_target_group_arn = data.terraform_remote_state.alb.outputs.alb_target_group_web["arn"]
+  #api_target_group_arn = data.terraform_remote_state.alb.outputs.alb_target_group_api["arn"]
   # health_check_target_group_path = "/"
 
   # target_group_port = 80
