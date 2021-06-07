@@ -27,16 +27,16 @@ data "terraform_remote_state" "cporacle_security_groups" {
     region = var.region
   }
 }
-
-data "terraform_remote_state" "alb" {
-  backend = "s3"
-
-  config = {
-    bucket = var.remote_state_bucket_name
-    key    = "cp-oracle/alb/terraform.tfstate"
-    region = var.region
-  }
-}
+//This is not available due to build order
+//data "terraform_remote_state" "alb" {
+//  backend = "s3"
+//
+//  config = {
+//    bucket = var.remote_state_bucket_name
+//    key    = "cp-oracle/alb/terraform.tfstate"
+//    region = var.region
+//  }
+//}
 
 
 data "terraform_remote_state" "core_vpc" {
