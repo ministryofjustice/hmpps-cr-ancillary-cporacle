@@ -7,9 +7,9 @@ terraform {
 # KMS KEY GENERATION - FOR ENCRYPTION
 ############################################
 module "kms_key" {
-  source              = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git//modules//kms?ref=terraform-0.12"
-  kms_key_name        = local.common_name
-  tags                = local.tags
+  source            = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git//modules//kms?ref=terraform-0.12"
+  kms_key_name      = local.common_name
+  tags              = local.tags
   kms_policy_location = var.environment_type == "prod" ? "policies/kms-cross-account-policy.json" : "policies/kms-policy-${local.environment_name}.json"
 }
 
@@ -95,30 +95,30 @@ resource "aws_db_option_group" "cporacle" {
 }
 
 resource "aws_db_instance" "cporacle" {
-  identifier = "${local.common_name}-native-backup-restore"
-
-  allocated_storage     = local.rds_allocated_storage
-  max_allocated_storage = local.rds_max_allocated_storage
-
-  apply_immediately               = local.rds_apply_immediately
-  auto_minor_version_upgrade      = local.rds_allow_auto_minor_version_upgrade
-  backup_retention_period         = local.rds_backup_retention_period
+  identifier                 = "${local.common_name}-native-backup-restore"
+  
+  allocated_storage          = local.rds_allocated_storage
+  max_allocated_storage      = local.rds_max_allocated_storage 
+  
+  apply_immediately          = local.rds_apply_immediately
+  auto_minor_version_upgrade = local.rds_allow_auto_minor_version_upgrade
+  backup_retention_period    = local.rds_backup_retention_period
   enabled_cloudwatch_logs_exports = local.rds_enabled_cloudwatch_logs_exports
-  copy_tags_to_snapshot           = local.rds_copy_tags_to_snapshot
-  db_subnet_group_name            = aws_db_subnet_group.cporacle.name
-  delete_automated_backups        = local.rds_delete_automatic_backups
-  engine                          = local.rds_engine
-  engine_version                  = local.rds_engine_version
-  instance_class                  = local.rds_instance_class
-  kms_key_id                      = module.kms_key.kms_arn
-  license_model                   = local.rds_license_model
-  maintenance_window              = local.rds_maintenance_window
-  monitoring_interval             = local.rds_monitoring_interval
-  monitoring_role_arn             = local.rds_monitoring_role_arn
-  multi_az                        = local.rds_multi_az
-  option_group_name               = aws_db_option_group.cporacle.name
-  parameter_group_name            = aws_db_parameter_group.cporacle.name
-  password                        = data.aws_ssm_parameter.rds_master_password.value
+  copy_tags_to_snapshot      = local.rds_copy_tags_to_snapshot
+  db_subnet_group_name       = aws_db_subnet_group.cporacle.name
+  delete_automated_backups   = local.rds_delete_automatic_backups
+  engine                     = local.rds_engine
+  engine_version             = local.rds_engine_version
+  instance_class             = local.rds_instance_class
+  kms_key_id                 = module.kms_key.kms_arn
+  license_model              = local.rds_license_model
+  maintenance_window         = local.rds_maintenance_window
+  monitoring_interval        = local.rds_monitoring_interval
+  monitoring_role_arn        = local.rds_monitoring_role_arn
+  multi_az                   = local.rds_multi_az
+  option_group_name          = aws_db_option_group.cporacle.name
+  parameter_group_name       = aws_db_parameter_group.cporacle.name
+  password                   = data.aws_ssm_parameter.rds_master_password.value
 
   performance_insights_enabled          = local.rds_performance_insights_enabled
   performance_insights_kms_key_id       = data.aws_kms_key.by_alias_arn.arn
@@ -133,9 +133,9 @@ resource "aws_db_instance" "cporacle" {
   vpc_security_group_ids = local.rds_vpc_security_group_ids
 
   tags = merge(local.tags,
-    {
-      "Name" = "${local.common_name}-native-sql"
-    }
+              {
+                "Name" = "${local.common_name}-native-sql"
+              }
   )
 }
 

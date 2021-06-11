@@ -21,7 +21,7 @@ variable "parameters" {
 
 # DB option group
 variable "options" {
-  type        = list(any)
+  type        = list
   description = "A list of Options to apply."
   default     = []
 }
