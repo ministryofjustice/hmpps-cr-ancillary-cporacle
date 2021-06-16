@@ -40,3 +40,16 @@ data "terraform_remote_state" "monitoring" {
     region = var.region
   }
 }
+
+#-------------------------------------------------------------
+### Getting the database details
+#-------------------------------------------------------------
+data "terraform_remote_state" "database" {
+  backend = "s3"
+
+  config = {
+    bucket = var.remote_state_bucket_name
+    key    = "cp-oracle/athena-log-reading/terraform.tfstate"
+    region = var.region
+  }
+}

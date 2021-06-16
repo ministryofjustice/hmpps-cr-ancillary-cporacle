@@ -25,5 +25,5 @@ locals {
   }
 
   sns_alarm_notification_arn = data.terraform_remote_state.monitoring.outputs.aws_sns_topic_alarm_notification["arn"]
-  
+  db_instance_id             = data.terraform_remote_state.database.outputs.database_info["instance_id"]
 }
