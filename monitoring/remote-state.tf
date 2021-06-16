@@ -27,3 +27,16 @@ data "terraform_remote_state" "vpc" {
     region = var.region
   }
 }
+
+#-------------------------------------------------------------
+### Getting the Monitoring details
+#-------------------------------------------------------------
+data "terraform_remote_state" "monitoring" {
+  backend = "s3"
+
+  config = {
+    bucket = var.remote_state_bucket_name
+    key    = "monitoring/terraform.tfstate"
+    region = var.region
+  }
+}
