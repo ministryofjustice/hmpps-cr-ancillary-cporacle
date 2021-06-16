@@ -20,8 +20,8 @@ resource "aws_cloudwatch_metric_alarm" "cporacle_api_cloudwatch_agent_log_warnin
   namespace                 = "cporacle_api"
   statistic                 = "Sum"
   threshold                 = "1"
-  alarm_actions             = local.sns_alarm_notification_arn
-  ok_actions                = local.sns_alarm_notification_arn
+  alarm_actions             = [local.sns_alarm_notification_arn]
+  ok_actions                = [local.sns_alarm_notification_arn]
   alarm_description         = "No cloudwatch agent logs for 5 minutes"
   treat_missing_data        = "notBreaching"
   insufficient_data_actions = []
@@ -37,8 +37,8 @@ resource "aws_cloudwatch_metric_alarm" "cporacle_api_cloudwatch_agent_log_critic
   namespace                 = "cporacle_api"
   statistic                 = "Sum"
   threshold                 = "3"
-  alarm_actions             = local.sns_alarm_notification_arn
-  ok_actions                = local.sns_alarm_notification_arn
+  alarm_actions             = [local.sns_alarm_notification_arn]
+  ok_actions                = [local.sns_alarm_notification_arn]
   alarm_description         = "No cloudwatch agent logs for 15 minutes"
   treat_missing_data        = "notBreaching"
   insufficient_data_actions = []

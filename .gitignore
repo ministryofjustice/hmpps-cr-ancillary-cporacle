@@ -10,6 +10,7 @@
 env_configs/
 env_configs
 **/.terraform/*
+run.sh 
 
 .idea/
 .gradle/
