@@ -40,3 +40,16 @@ data "terraform_remote_state" "monitoring" {
     region = var.region
   }
 }
+
+#-------------------------------------------------------------
+### Getting the Admin Instance details
+#-------------------------------------------------------------
+data "terraform_remote_state" "admininstance" {
+  backend = "s3"
+
+  config = {
+    bucket = var.remote_state_bucket_name
+    key    = "${var.environment_type}/admininstance/terraform.tfstate"
+    region = var.region
+  }
+}
