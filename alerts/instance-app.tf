@@ -1,5 +1,5 @@
 # CPU Utilization - Critical
-resource "aws_cloudwatch_metric_alarm" "CPUUtilization_critical" {
+resource "aws_cloudwatch_metric_alarm" "APP_CPUUtilization_critical" {
   alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_CPUUtilization--critical"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
@@ -20,7 +20,7 @@ resource "aws_cloudwatch_metric_alarm" "CPUUtilization_critical" {
 }
 
 # CPU Utilization - Warning
-resource "aws_cloudwatch_metric_alarm" "CPUUtilization_warning" {
+resource "aws_cloudwatch_metric_alarm" "APP_CPUUtilization_warning" {
   alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_CPUUtilization--warning"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
@@ -41,7 +41,7 @@ resource "aws_cloudwatch_metric_alarm" "CPUUtilization_warning" {
 }
 
 # Instance Status Failed - Critical
-resource "aws_cloudwatch_metric_alarm" "StatusCheckFailed" {
+resource "aws_cloudwatch_metric_alarm" "APP_StatusCheckFailed" {
   alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_StatusCheckFailed--critical"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
@@ -62,7 +62,7 @@ resource "aws_cloudwatch_metric_alarm" "StatusCheckFailed" {
 }
 
 # Memory Utilization - Critical
-resource "aws_cloudwatch_metric_alarm" "MemoryUtilization_critical" {
+resource "aws_cloudwatch_metric_alarm" "APP_MemoryUtilization_critical" {
   alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_MemoryUtilization--critical"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
@@ -84,7 +84,7 @@ resource "aws_cloudwatch_metric_alarm" "MemoryUtilization_critical" {
 }
 
 # Memory Utilization - Warning
-resource "aws_cloudwatch_metric_alarm" "MemoryUtilization_warning" {
+resource "aws_cloudwatch_metric_alarm" "APP_MemoryUtilization_warning" {
   alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_MemoryUtilization--warning"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
@@ -106,7 +106,7 @@ resource "aws_cloudwatch_metric_alarm" "MemoryUtilization_warning" {
 }
 
 #  Drive Space - Critical
-resource "aws_cloudwatch_metric_alarm" "free_disk_space_C_critical" {
+resource "aws_cloudwatch_metric_alarm" "APP_free_disk_space_C_critical" {
   alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_Free_Space_C_Drive--critical"
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = 1
@@ -129,7 +129,7 @@ resource "aws_cloudwatch_metric_alarm" "free_disk_space_C_critical" {
 }
 
 #  Drive Space - Warning
-resource "aws_cloudwatch_metric_alarm" "free_disk_space_C_warning" {
+resource "aws_cloudwatch_metric_alarm" "APP_free_disk_space_C_warning" {
   alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_Free_Space_C_Drive--warning"
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = 1
