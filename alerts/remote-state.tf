@@ -53,3 +53,16 @@ data "terraform_remote_state" "admininstance" {
     region = var.region
   }
 }
+
+#-------------------------------------------------------------
+### Getting the ALB details
+#-------------------------------------------------------------
+data "terraform_remote_state" "alb" {
+  backend = "s3"
+
+  config = {
+    bucket = var.remote_state_bucket_name
+    key    = "cp-oracle/alb/terraform.tfstate"
+    region = var.region
+  }
+}
