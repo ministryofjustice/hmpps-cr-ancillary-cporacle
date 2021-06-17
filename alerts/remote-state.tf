@@ -49,7 +49,7 @@ data "terraform_remote_state" "admininstance" {
 
   config = {
     bucket = var.remote_state_bucket_name
-    key    = "${var.environment_type}/admininstance/terraform.tfstate"
+    key    = "cp-oracle/admininstance/terraform.tfstate"
     region = var.region
   }
 }
