@@ -1,6 +1,6 @@
 # CPU Utilization - Critical
 resource "aws_cloudwatch_metric_alarm" "CPUUtilization_critical" {
-  alarm_name          = "${var.environment_name}_CPOracle_API_Instance_CPUUtilization--critical"
+  alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_CPUUtilization--critical"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
   metric_name         = "CPUUtilization"
@@ -8,7 +8,7 @@ resource "aws_cloudwatch_metric_alarm" "CPUUtilization_critical" {
   period              = 120
   statistic           = "Average"
   threshold           = 80
-  alarm_description   = "CPU Utilization for the CPOracle API instance is greater than 80%"
+  alarm_description   = "CPU Utilization for the CPOracle APP instance is greater than 80%"
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
@@ -21,7 +21,7 @@ resource "aws_cloudwatch_metric_alarm" "CPUUtilization_critical" {
 
 # CPU Utilization - Warning
 resource "aws_cloudwatch_metric_alarm" "CPUUtilization_warning" {
-  alarm_name          = "${var.environment_name}_CPOracle_API_Instance_CPUUtilization--warning"
+  alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_CPUUtilization--warning"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
   metric_name         = "CPUUtilization"
@@ -29,7 +29,7 @@ resource "aws_cloudwatch_metric_alarm" "CPUUtilization_warning" {
   period              = 120
   statistic           = "Average"
   threshold           = 60
-  alarm_description   = "CPU Utilization for the CPOracle API instance is greater than 60%"
+  alarm_description   = "CPU Utilization for the CPOracle APP instance is greater than 60%"
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
@@ -42,7 +42,7 @@ resource "aws_cloudwatch_metric_alarm" "CPUUtilization_warning" {
 
 # Instance Status Failed - Critical
 resource "aws_cloudwatch_metric_alarm" "StatusCheckFailed" {
-  alarm_name          = "${var.environment_name}_CPOracle_API_Instance_StatusCheckFailed--critical"
+  alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_StatusCheckFailed--critical"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   metric_name         = "StatusCheckFailed"
@@ -50,7 +50,7 @@ resource "aws_cloudwatch_metric_alarm" "StatusCheckFailed" {
   period              = 300
   statistic           = "Average"
   threshold           = 1
-  alarm_description   = "ec2 StatusCheckFailed for CPOracle API instance"
+  alarm_description   = "ec2 StatusCheckFailed for CPOracle APP instance"
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
@@ -63,7 +63,7 @@ resource "aws_cloudwatch_metric_alarm" "StatusCheckFailed" {
 
 # Memory Utilization - Critical
 resource "aws_cloudwatch_metric_alarm" "MemoryUtilization_critical" {
-  alarm_name          = "${var.environment_name}_CPOracle_API_Instance_MemoryUtilization--critical"
+  alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_MemoryUtilization--critical"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   metric_name         = "MemoryUtilization"
@@ -71,7 +71,7 @@ resource "aws_cloudwatch_metric_alarm" "MemoryUtilization_critical" {
   period              = 120
   statistic           = "Average"
   threshold           = 85
-  alarm_description   = "Memory Utilization is averaging 85% for CPOracle API Instance."
+  alarm_description   = "Memory Utilization is averaging 85% for CPOracle APP Instance."
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
@@ -85,7 +85,7 @@ resource "aws_cloudwatch_metric_alarm" "MemoryUtilization_critical" {
 
 # Memory Utilization - Warning
 resource "aws_cloudwatch_metric_alarm" "MemoryUtilization_warning" {
-  alarm_name          = "${var.environment_name}_CPOracle_API_Instance_MemoryUtilization--warning"
+  alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_MemoryUtilization--warning"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   metric_name         = "MemoryUtilization"
@@ -93,7 +93,7 @@ resource "aws_cloudwatch_metric_alarm" "MemoryUtilization_warning" {
   period              = 120
   statistic           = "Average"
   threshold           = 70
-  alarm_description   = "Memory Utilization is averaging 70% for CPOracle API Instance."
+  alarm_description   = "Memory Utilization is averaging 70% for CPOracle APP Instance."
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
@@ -107,7 +107,7 @@ resource "aws_cloudwatch_metric_alarm" "MemoryUtilization_warning" {
 
 #  Drive Space - Critical
 resource "aws_cloudwatch_metric_alarm" "free_disk_space_C_critical" {
-  alarm_name          = "${var.environment_name}_CPOracle_API_Instance_Free_Space_C_Drive--critical"
+  alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_Free_Space_C_Drive--critical"
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = 1
   metric_name         = "LogicalDisk % Free Space"
@@ -115,7 +115,7 @@ resource "aws_cloudwatch_metric_alarm" "free_disk_space_C_critical" {
   period              = 60
   statistic           = "Average"
   threshold           = 5
-  alarm_description   = "C: Drive Free Space is less than 5% on CPOracle API Instance."
+  alarm_description   = "C: Drive Free Space is less than 5% on CPOracle APP Instance."
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
@@ -130,7 +130,7 @@ resource "aws_cloudwatch_metric_alarm" "free_disk_space_C_critical" {
 
 #  Drive Space - Warning
 resource "aws_cloudwatch_metric_alarm" "free_disk_space_C_warning" {
-  alarm_name          = "${var.environment_name}_CPOracle_API_Instance_Free_Space_C_Drive--warning"
+  alarm_name          = "${var.environment_name}_CPOracle_APP_Instance_Free_Space_C_Drive--warning"
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = 1
   metric_name         = "LogicalDisk % Free Space"
@@ -138,7 +138,7 @@ resource "aws_cloudwatch_metric_alarm" "free_disk_space_C_warning" {
   period              = 60
   statistic           = "Average"
   threshold           = 25
-  alarm_description   = "C: Drive Free Space is less than 25% on CPOracle API Instance."
+  alarm_description   = "C: Drive Free Space is less than 25% on CPOracle APP Instance."
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
