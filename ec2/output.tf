@@ -42,6 +42,10 @@ output "cporacle_app_asg" {
   value = aws_autoscaling_group.cporacle_app
 }
 
+output "cporacle_api_asg" {
+  value = aws_autoscaling_group.cporacle_api
+}
+
 output "cporacle_log_group_cloudwatch_agent_api" {
   value = aws_cloudwatch_log_group.cporacle_log_group_cloudwatch_agent_api
 }
