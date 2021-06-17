@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_log_metric_filter" "cporacle_api_cloudwatch_agent_log_count" {
   name           = local.cporacle_api_cloudwatch_agent_log_sum_metric_name
   pattern        = ""
-  log_group_name = local.cporacle_log_group_cloudwatch_agent
+  log_group_name = local.cporacle_log_group_cloudwatch_agent_api
 
   metric_transformation {
     name          = local.cporacle_api_cloudwatch_agent_log_sum_metric_name
