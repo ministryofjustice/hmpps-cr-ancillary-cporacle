@@ -41,3 +41,9 @@ output "db_parameter_group" {
 output "db_option_group" {
   value = aws_db_option_group.cporacle
 }
+
+output "database_info" {
+  value = {
+    instance_id = aws_db_instance.cporacle.id
+  }
+}

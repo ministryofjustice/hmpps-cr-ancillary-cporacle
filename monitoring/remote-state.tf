@@ -49,7 +49,7 @@ data "terraform_remote_state" "database" {
 
   config = {
     bucket = var.remote_state_bucket_name
-    key    = "cp-oracle/athena-log-reading/terraform.tfstate"
+    key    = "cp-oracle/rds/terraform.tfstate"
     region = var.region
   }
 }
