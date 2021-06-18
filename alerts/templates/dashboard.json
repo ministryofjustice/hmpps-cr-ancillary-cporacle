@@ -1,3 +1,95 @@
 {
-  "widgets": []
+    "widgets": [
+        {
+            "height": 6,
+            "width": 6,
+            "y": 6,
+            "x": 6,
+            "type": "metric",
+            "properties": {
+                "view": "timeSeries",
+                "stacked": true,
+                "metrics": [
+                    [ "AWS/EC2", "CPUUtilization", "AutoScalingGroupName", "${app_asg_autoscale_name}" ],
+                    [ "AWS/AutoScaling", "GroupTotalInstances", ".", "." ]
+                ],
+                "region": "${region}",
+                "title": "CPOracle APP"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 6,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "IIS", "cr-CPOracle-dev_APP_AppPool", { "region": "eu-west-2" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${region}",
+                "title": "APP IIS HttpError",
+                "period": 300,
+                "stat": "SampleCount"
+            }
+        },
+        {
+            "height": 6,
+            "width": 24,
+            "y": 0,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "metrics": [
+                    [ "AWS/ApplicationELB", "RequestCountPerTarget", "TargetGroup", "${app_target_group_arn_suffix}" ],
+                    [ ".", "UnHealthyHostCount", ".", ".", "LoadBalancer", "${app_lb_arn_suffix}" ],
+                    [ ".", "RequestCount", ".", ".", ".", "." ],
+                    [ ".", "HTTPCode_Target_4XX_Count", ".", ".", ".", "." ],
+                    [ ".", "TargetResponseTime", ".", ".", ".", "." ],
+                    [ ".", "RequestCountPerTarget", ".", ".", ".", "." ],
+                    [ ".", "HealthyHostCount", ".", ".", ".", "." ]
+                ],
+                "view": "singleValue",
+                "region": "${region}",
+                "title": "CPOracle APP ALB",
+                "period": 300
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 6,
+            "x": 12,
+            "type": "metric",
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "AWS/RDS", "FreeStorageSpace", "DBInstanceIdentifier", "${db_name}" ],
+                    [ ".", "FreeableMemory", ".", "." ],
+                    [ ".", "CPUUtilization", ".", "." ],
+                    [ ".", "WriteIOPS", ".", "." ],
+                    [ ".", "ReadIOPS", ".", "." ]
+                ],
+                "region": "${region}",
+                "title": "Database"
+            }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 6,
+            "x": 18,
+            "type": "alarm",
+            "properties": {
+                "title": "Application Status",
+                "alarms": [
+                    "${app_app_pool_httperr_offline}",
+                    "${api_app_pool_httperr_offline}"
+                ]
+            }
+        }
+    ]
 }
