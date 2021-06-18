@@ -14,7 +14,7 @@ data "terraform_remote_state" "common" {
 #-------------------------------------------------------------
 ### Getting the EC2 details
 #-------------------------------------------------------------
-data "terraform_remote_state" "alb" {
+data "terraform_remote_state" "ec2" {
   backend = "s3"
 
   config = {
