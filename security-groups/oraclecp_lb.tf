@@ -53,3 +53,15 @@ resource "aws_security_group_rule" "cporacle_lb_appservers_ingress_http" {
     local.bastion_cidr,
   )
 }
+
+resource "aws_security_group_rule" "cporacle_lb_appservers_ingress_https" {
+  security_group_id = aws_security_group.cporacle_lb.id
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  type              = "ingress"
+  description       = "${local.common_name}-https-in-via-bastion"
+  cidr_blocks = concat(
+    local.bastion_cidr,
+  )
+}
