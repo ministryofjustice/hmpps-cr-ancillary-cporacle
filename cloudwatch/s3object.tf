@@ -18,9 +18,9 @@ resource "aws_s3_bucket_object" "APP_cloudwatch_config" {
 data "template_file" "API_cloudwatch_config" {
   template = file("./files/config.json")
   vars = {
-    log_group_name                   = local.app_log_group_name
-    system_event_log_group_name      = local.app_system_events_log_group_name
-    application_event_log_group_name = local.app_application_events_log_group_name
+    log_group_name                   = local.api_log_group_name
+    system_event_log_group_name      = local.api_system_events_log_group_name
+    application_event_log_group_name = local.api_application_events_log_group_name
   }
 }
 
