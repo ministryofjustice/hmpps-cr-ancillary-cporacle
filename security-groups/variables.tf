@@ -20,3 +20,13 @@ variable "bastion_remote_state_bucket_name" {
 variable "bastion_role_arn" {
   description = "role to access bastion terraform state"
 }
+
+variable "cr_ancillary_route53_healthcheck_access_cidrs" {
+  type    = list(any)
+  default = []
+}
+
+variable "cr_ancillary_route53_healthcheck_access_ipv6_cidrs" {
+  type    = list(any)
+  default = []
+}

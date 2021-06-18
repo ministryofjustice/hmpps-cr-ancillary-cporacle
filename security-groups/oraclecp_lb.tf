@@ -65,3 +65,19 @@ resource "aws_security_group_rule" "cporacle_lb_appservers_ingress_https" {
     local.bastion_cidr,
   )
 }
+
+# Route53 healthcheck
+resource "aws_security_group_rule" "route53_heatlcheck_ingress_https" {
+  security_group_id = aws_security_group.cporacle_lb.id
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks = concat(
+    var.cr_ancillary_route53_healthcheck_access_cidrs
+  )
+  ipv6_cidr_blocks = concat(
+    var.cr_ancillary_route53_healthcheck_access_ipv6_cidrs
+  )
+  description = "Application Route53 health check Access - Https"
+}
