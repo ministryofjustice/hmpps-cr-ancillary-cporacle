@@ -42,19 +42,6 @@ data "terraform_remote_state" "monitoring" {
 }
 
 #-------------------------------------------------------------
-### Getting the Admin Instance details
-#-------------------------------------------------------------
-data "terraform_remote_state" "admininstance" {
-  backend = "s3"
-
-  config = {
-    bucket = var.remote_state_bucket_name
-    key    = "cp-oracle/admininstance/terraform.tfstate"
-    region = var.region
-  }
-}
-
-#-------------------------------------------------------------
 ### Getting the ALB details
 #-------------------------------------------------------------
 data "terraform_remote_state" "alb" {
