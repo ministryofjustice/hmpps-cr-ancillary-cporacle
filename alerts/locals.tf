@@ -25,7 +25,7 @@ locals {
   }
 
   sns_alarm_notification_arn = data.terraform_remote_state.monitoring.outputs.aws_sns_topic_alarm_notification["arn"]
-  db_instance_id              = "${var.environment_name}-native-backup-restore"
+  db_instance_id              = "cp-oracle-native-backup-restore"
   cporacle_api_asg            = data.terraform_remote_state.ec2.outputs.cporacle_app_asg["name"]
   cporacle_app_asg            = data.terraform_remote_state.ec2.outputs.cporacle_app_asg["name"]
   cporacle_api_alb            = data.terraform_remote_state.alb.outputs.alb_api
