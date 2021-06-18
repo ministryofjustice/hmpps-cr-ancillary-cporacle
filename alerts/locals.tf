@@ -34,6 +34,6 @@ locals {
   cporacle_app_tg             = data.terraform_remote_state.alb.outputs.alb_target_group_web
   app_log_group_name          = data.terraform_remote_state.ec2.outputs.cporacle_log_group_cporacle_application["name"]
   api_log_group_name          = data.terraform_remote_state.ec2.outputs.cporacle_log_group_cporacle_api["name"]
-  app_aws_route53_record_name = data.terraform_remote_state.alb.aws_route53_record_cporacle["fqdn"]
-  api_aws_route53_record_name = data.terraform_remote_state.alb.aws_route53_record_cporacle_api["fqdn"]
+  app_aws_route53_record_name = data.terraform_remote_state.alb.outputs.aws_route53_record_cporacle["fqdn"]
+  api_aws_route53_record_name = data.terraform_remote_state.alb.outputs.aws_route53_record_cporacle_api["fqdn"]
 }
