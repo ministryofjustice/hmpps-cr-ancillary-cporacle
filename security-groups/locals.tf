@@ -20,6 +20,5 @@ locals {
   ssh_deployer_key = data.terraform_remote_state.common.outputs.ssh_deployer_key
 
   #bastion_cidr = flatten(data.terraform_remote_state.common.outputs.bastion_cidr)
-  bastion_cidr = [ "10.161.98.0/28", "10.161.98.16/28", "10.161.98.32/28"]
-
+  bastion_cidr = [ "10.161.98.0/28", "10.161.98.16/28", "10.161.98.32/28", "${data.terraform_remote_state.bastion.outputs.bastion_ip}/32"]
 }
