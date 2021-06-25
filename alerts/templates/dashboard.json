@@ -147,6 +147,22 @@
                 "region": "eu-west-2",
                 "title": "CPOracle API"
             }
+        },
+        {
+            "height": 6,
+            "width": 6,
+            "y": 18,
+            "x": 0,
+            "type": "metric",
+            "properties": {
+                "view": "timeSeries",
+                "stacked": false,
+                "metrics": [
+                    [ "CWAgent", "MemoryUtilization", "AutoScalingGroupName", "${api_asg_autoscale_name}", "objectname", "Memory" ],
+                    [ "...", "${app_asg_autoscale_name}", ".", "." ]
+                ],
+                "region": "eu-west-2"
+            }
         }
     ]
 }
