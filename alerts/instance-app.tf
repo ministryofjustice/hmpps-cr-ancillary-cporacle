@@ -13,7 +13,7 @@ resource "aws_cloudwatch_metric_alarm" "APP_CPUUtilization_critical" {
   ok_actions          = [local.sns_alarm_notification_arn]
 
   dimensions = {
-    AutoScalingGroupName = local.cporacle_api_asg
+    AutoScalingGroupName = local.cporacle_app_asg
   }
 
   tags = local.tags
@@ -34,7 +34,7 @@ resource "aws_cloudwatch_metric_alarm" "APP_CPUUtilization_warning" {
   ok_actions          = [local.sns_alarm_notification_arn]
 
   dimensions = {
-    AutoScalingGroupName = local.cporacle_api_asg
+    AutoScalingGroupName = local.cporacle_app_asg
   }
 
   tags = local.tags
@@ -55,7 +55,7 @@ resource "aws_cloudwatch_metric_alarm" "APP_StatusCheckFailed" {
   ok_actions          = [local.sns_alarm_notification_arn]
 
   dimensions = {
-    AutoScalingGroupName = local.cporacle_api_asg
+    AutoScalingGroupName = local.cporacle_app_asg
   }
 
   tags = local.tags
@@ -76,7 +76,7 @@ resource "aws_cloudwatch_metric_alarm" "APP_MemoryUtilization_critical" {
   ok_actions          = [local.sns_alarm_notification_arn]
 
   dimensions = {
-    AutoScalingGroupName = local.cporacle_api_asg
+    AutoScalingGroupName = local.cporacle_app_asg
     objectname           = "Memory"
   }
 
@@ -98,7 +98,7 @@ resource "aws_cloudwatch_metric_alarm" "APP_MemoryUtilization_warning" {
   ok_actions          = [local.sns_alarm_notification_arn]
 
   dimensions = {
-    AutoScalingGroupName = local.cporacle_api_asg
+    AutoScalingGroupName = local.cporacle_app_asg
     objectname           = "Memory"
   }
 
@@ -121,7 +121,7 @@ resource "aws_cloudwatch_metric_alarm" "APP_free_disk_space_C_critical" {
 
   dimensions = {
     instance             = "C:"
-    AutoScalingGroupName = local.cporacle_api_asg
+    AutoScalingGroupName = local.cporacle_app_asg
     objectname           = "LogicalDisk"
   }
 
@@ -144,7 +144,7 @@ resource "aws_cloudwatch_metric_alarm" "APP_free_disk_space_C_warning" {
 
   dimensions = {
     instance             = "C:"
-    AutoScalingGroupName = local.cporacle_api_asg
+    AutoScalingGroupName = local.cporacle_app_asg
     objectname           = "LogicalDisk"
   }
 
