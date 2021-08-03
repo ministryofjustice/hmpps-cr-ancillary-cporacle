@@ -28,16 +28,14 @@ Get-WindowsFeature | Where { $_.InstallState -eq "Installed" } | Format-Table
 #Resize-Partition -DriveLetter C -Size $MaxSize
 
 # Set timezone
-#tzutil /s 'GMT Standard Time' 
+tzutil /s 'GMT Standard Time'
 
 # Run all scripts that apply runtime config
-#$runtimeconfig = 'C:\Setup\RunTimeConfig'
-#    Foreach-Object {
-#Get-ChildItem $runtimeconfig -Filter *.ps1 | 
-#        stop-service IapsNDeliusInterfaceWinService
-#        stop-service IMIapsInterfaceWinService
-#        & $runtimeconfig\$_
-#    }
+$runtimeconfig = 'C:\Setup\RunTimeConfig'
+    Foreach-Object {
+Get-ChildItem $runtimeconfig -Filter *.ps1 |
+        & $runtimeconfig\$_
+    }
 
 </powershell>
 <persist>true</persist>

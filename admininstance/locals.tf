@@ -29,9 +29,9 @@ locals {
   ec2_instance_profile = data.terraform_remote_state.cporacle_iam.outputs.iam_instance_profile_cp_oracle.iam_instance_name
 
   ec2_props = {
-    ami_id                = "ami-07c04e88f232dc18a"
+    ami_id                = "ami-093c5305ac0d2a8e6"
     ami_image_tag_version = "0.61.0"
-    instance_type         = "t3.2xlarge"
+    instance_type         = "m4.xlarge"
     ebs_volume_size       = 120
   }
 
