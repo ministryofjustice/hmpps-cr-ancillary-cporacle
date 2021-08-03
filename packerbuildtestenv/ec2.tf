@@ -14,12 +14,12 @@ resource "aws_instance" "packer_server" {
   ami           = local.ec2_props["ami_id"]
   instance_type = local.ec2_props["instance_type"]
 
-  subnet_id                   = local.subnet_ids[0]
-  iam_instance_profile        = local.ec2_props["ec2_instance_profile"]
+  subnet_id            = local.subnet_ids[0]
+  iam_instance_profile = local.ec2_props["ec2_instance_profile"]
 
   associate_public_ip_address = false
   vpc_security_group_ids      = local.security_groups
-  
+
   key_name = local.ec2_props["ssh_deployer_key"]
 
   root_block_device {

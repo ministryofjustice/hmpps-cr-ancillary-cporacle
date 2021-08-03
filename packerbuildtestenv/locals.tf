@@ -1,11 +1,11 @@
 locals {
 
   ec2_props = {
-    ami_id                = "ami-07c04e88f232dc18a"
-    instance_type         = "t3.large"
-    ebs_volume_size       = 120
-    ec2_instance_profile  = "alf-packer-builds-role"
-    ssh_deployer_key      = "tf-eu-west-2-hmpps-eng-dev-ssh-key"
+    ami_id               = "ami-093c5305ac0d2a8e6"
+    instance_type        = "m4.xlarge"
+    ebs_volume_size      = 120
+    ec2_instance_profile = "alf-packer-builds-role"
+    ssh_deployer_key     = "tf-eu-west-2-hmpps-eng-dev-ssh-key"
   }
 
   subnet_ids = [
