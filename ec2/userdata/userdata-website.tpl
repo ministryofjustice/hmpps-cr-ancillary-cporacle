@@ -31,11 +31,10 @@ Get-WindowsFeature | Where { $_.InstallState -eq "Installed" } | Format-Table
 tzutil /s 'GMT Standard Time'
 
 # Run all scripts that apply runtime config
-$runtimeconfig = 'C:\Setup\RunTimeConfig'
-    Foreach-Object {
-Get-ChildItem $runtimeconfig -Filter *.ps1 |
-        & $runtimeconfig\$_
-    }
+cd c:\setup\RunTimeConfig
+.\InstallKarmaWebsite.ps1
+.\CPOracleConfigure.ps1
+
 
 # Add code here to pull down the Website Zip File from s3://
 </powershell>
