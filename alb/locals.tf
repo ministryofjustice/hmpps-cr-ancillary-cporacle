@@ -63,7 +63,7 @@ locals {
   target_group_web_name   = "${local.common_name}-asg-target-group"
   target_group_web_sticky = false
 
-  health_check_target_group_web_path = "/karma.html"
+  health_check_target_group_web_path = "/index.html"
   target_group_web_port              = 80
   web_svc_port                       = 80
 
