@@ -12,9 +12,9 @@ resource "aws_alb_target_group" "alb_target_group_api" {
 
   health_check {
     healthy_threshold   = 3
-    unhealthy_threshold = 10
-    timeout             = 5
-    interval            = 10
+    unhealthy_threshold = 5
+    timeout             = 3
+    interval            = 5
     path                = local.health_check_target_group_api_path
     port                = local.target_group_api_port
   }
