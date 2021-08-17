@@ -13,45 +13,45 @@ resource "aws_security_group" "cporacle_lb" {
 }
 
 resource "aws_security_group_rule" "cporacle_lb_http_ingress_80_self" {
-  type                     = "ingress"
-  from_port                = 80
-  to_port                  = 80
-  protocol                 = "tcp"
-  self                     = true
-  security_group_id        = aws_security_group.cporacle_lb.id
-  description              = "CP-Oracle ALB Internal LB http"
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  self              = true
+  security_group_id = aws_security_group.cporacle_lb.id
+  description       = "CP-Oracle ALB Internal LB http"
 }
 
 resource "aws_security_group_rule" "cporacle_lb_https_ingress_443_self" {
-  type                     = "ingress"
-  from_port                = 443
-  to_port                  = 443
-  protocol                 = "tcp"
-  self                     = true
-  security_group_id        = aws_security_group.cporacle_lb.id
-  description              = "CP-Oracle ALB Internal LB https"
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  self              = true
+  security_group_id = aws_security_group.cporacle_lb.id
+  description       = "CP-Oracle ALB Internal LB https"
 }
 
 resource "aws_security_group_rule" "application_access_http" {
-  type                     = "ingress"
-  from_port                = 80
-  to_port                  = 80
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.cporacle_lb.id
-  description              = "MOJ VPN and ARK http"
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  security_group_id = aws_security_group.cporacle_lb.id
+  description       = "MOJ VPN and ARK http"
   cidr_blocks = concat(
-  var.cr_ancillary_admin_cidrs,
-  var.cr_ancillary_access_cidrs
+    var.cr_ancillary_admin_cidrs,
+    var.cr_ancillary_access_cidrs
   )
 }
 
 resource "aws_security_group_rule" "application_access_https" {
-  type                     = "ingress"
-  from_port                = 443
-  to_port                  = 443
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.cporacle_lb.id
-  description              = "MOJ VPN and ARK https"
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = aws_security_group.cporacle_lb.id
+  description       = "MOJ VPN and ARK https"
   cidr_blocks = concat(
     var.cr_ancillary_admin_cidrs,
     var.cr_ancillary_access_cidrs
