@@ -40,7 +40,7 @@ resource "aws_security_group_rule" "application_access_http" {
   security_group_id        = aws_security_group.cporacle_lb.id
   description              = "MOJ VPN and ARK http"
   cidr_blocks = concat(
-  var.cr_ancillary_admin_cidrs
+  var.cr_ancillary_admin_cidrs,
   var.cr_ancillary_access_cidrs
   )
 }
@@ -53,7 +53,7 @@ resource "aws_security_group_rule" "application_access_https" {
   security_group_id        = aws_security_group.cporacle_lb.id
   description              = "MOJ VPN and ARK https"
   cidr_blocks = concat(
-    var.cr_ancillary_admin_cidrs
+    var.cr_ancillary_admin_cidrs,
     var.cr_ancillary_access_cidrs
   )
 }
