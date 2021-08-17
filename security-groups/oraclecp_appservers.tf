@@ -32,15 +32,15 @@ resource "aws_security_group_rule" "cporacle_appservers_egress_1433_db" {
 }
 
 resource "aws_security_group_rule" "cporacle_appservers_egress_https" {
-  type                     = "egress"
-  from_port                = 443
-  to_port                  = 443
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.cporacle_appservers.id
+  type              = "egress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = aws_security_group.cporacle_appservers.id
   cidr_blocks = [
     "0.0.0.0/0"
   ]
-  description              = "CP-Oracle Application Servers to HTTPS (AWS API)"
+  description = "CP-Oracle Application Servers to HTTPS (AWS API)"
 }
 
 resource "aws_security_group_rule" "cporacle_appservers_ingress_rdp" {
@@ -49,8 +49,8 @@ resource "aws_security_group_rule" "cporacle_appservers_ingress_rdp" {
   to_port           = 3389
   protocol          = "tcp"
 
-  type              = "ingress"
-  description       = "${local.common_name}-rdp-in-via-bastion"
+  type        = "ingress"
+  description = "${local.common_name}-rdp-in-via-bastion"
   cidr_blocks = concat(
     local.bastion_cidr,
   )
