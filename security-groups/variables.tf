@@ -30,3 +30,14 @@ variable "cr_ancillary_route53_healthcheck_access_ipv6_cidrs" {
   type    = list(any)
   default = []
 }
+
+variable "cr_ancillary_admin_cidrs" {
+  type    = list(any)
+  default = []
+}
+
+variable "cr_ancillary_access_cidrs" {
+  type    = list(any)
+  default = []
+}
+

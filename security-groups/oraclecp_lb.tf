@@ -32,6 +32,32 @@ resource "aws_security_group_rule" "cporacle_lb_https_ingress_443_self" {
   description              = "CP-Oracle ALB Internal LB https"
 }
 
+resource "aws_security_group_rule" "application_access_http" {
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.cporacle_lb.id
+  description              = "MOJ VPN and ARK http"
+  cidr_blocks = concat(
+  var.cr_ancillary_admin_cidrs
+  var.cr_ancillary_access_cidrs
+  )
+}
+
+resource "aws_security_group_rule" "application_access_https" {
+  type                     = "ingress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.cporacle_lb.id
+  description              = "MOJ VPN and ARK https"
+  cidr_blocks = concat(
+    var.cr_ancillary_admin_cidrs
+    var.cr_ancillary_access_cidrs
+  )
+}
+
 resource "aws_security_group_rule" "cporacle_lb_http_egress_80_appservers" {
   type                     = "egress"
   from_port                = 80
