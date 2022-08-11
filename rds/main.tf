@@ -133,9 +133,10 @@ resource "aws_db_instance" "cporacle" {
   vpc_security_group_ids = local.rds_vpc_security_group_ids
 
   tags = merge(local.tags,
-              {
-                "Name" = "${local.common_name}-native-sql"
-              }
+    {
+      "Name"                             = "${local.common_name}-native-sql"
+      "autostop-${var.environment_type}" = "Phase1"
+    }
   )
 }
 
