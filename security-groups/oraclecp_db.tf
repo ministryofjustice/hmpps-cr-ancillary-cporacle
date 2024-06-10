@@ -9,6 +9,9 @@ resource "aws_security_group" "cporacle_db" {
       "Name" = "cporacle-db"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "cporacle_db_ingress_1433" {

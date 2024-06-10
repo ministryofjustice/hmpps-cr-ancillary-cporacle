@@ -10,6 +10,9 @@ resource "aws_security_group" "cporacle_lb" {
       "Name" = "cporacle-lb"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "cporacle_lb_http_ingress_80_self" {
