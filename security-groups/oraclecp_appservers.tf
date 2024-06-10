@@ -9,6 +9,9 @@ resource "aws_security_group" "cporacle_appservers" {
       "Name" = "cporacle-appservers"
     }
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "cporacle_appservers_http_ingress_80" {

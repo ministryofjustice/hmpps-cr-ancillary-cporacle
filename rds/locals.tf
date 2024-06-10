@@ -1,6 +1,6 @@
 locals {
 
-  project_name     = var.project_name 
+  project_name     = var.project_name
   common_name      = data.terraform_remote_state.common.outputs.common_name
   environment_name = var.environment_name
   account_id       = data.terraform_remote_state.vpc.outputs.vpc_account_id
@@ -56,9 +56,9 @@ locals {
 
   rds_performance_insights_enabled          = var.rds_performance_insights_enabled
   rds_performance_insights_retention_period = var.rds_performance_insights_retention_period
-  
-  rds_monitoring_role_arn                   = data.terraform_remote_state.iam.outputs.rds_monitoring_role.iamrole_arn
-  rds_monitoring_interval                   = var.rds_monitoring_interval
+
+  rds_monitoring_role_arn = data.terraform_remote_state.iam.outputs.rds_monitoring_role.iamrole_arn
+  rds_monitoring_interval = var.rds_monitoring_interval
 
   rds_native_sql_backups_iam_role_arn = data.terraform_remote_state.iam.outputs.cporacle_native_sql_backups_iam_role.arn
 
@@ -92,7 +92,7 @@ locals {
       option_name = "TDE"
 
       option_settings = [
-        
+
       ]
     },
   ]

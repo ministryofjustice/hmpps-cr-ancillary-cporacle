@@ -50,8 +50,8 @@ data "template_file" "cporacle_native_sql_backups_iam_policy" {
   template = file("policies/cporacle_native_sql_backups_iam_policy.tpl")
 
   vars = {
-    s3_bucket    = local.s3_artifact_bucket
-    kms_key      = data.aws_kms_key.aws_s3.arn # arn:aws:kms:eu-west-2:964150688482:key/f208a9a6-fbf1-4ce2-a4ce-2ccbecfe2dac
+    s3_bucket = local.s3_artifact_bucket
+    kms_key   = data.aws_kms_key.aws_s3.arn # arn:aws:kms:eu-west-2:964150688482:key/f208a9a6-fbf1-4ce2-a4ce-2ccbecfe2dac
   }
 }
 
@@ -67,22 +67,22 @@ resource "aws_iam_policy" "cporacle_native_sql_backups_iam_policy" {
   description = "CPOracle Policy to Allow RDS to get backup files from S3"
   policy      = data.template_file.cporacle_native_sql_backups_iam_policy.rendered
 }
-     
+
 resource "aws_iam_role" "cporacle_native_sql_backups_iam_role" {
   name = "cporacle-native-sql-backups-iam-role"
 
   assume_role_policy = jsonencode({
-     "Version": "2012-10-17",
-     "Statement": [
-       {
-         "Effect": "Allow",
-         "Principal": {
-            "Service": "rds.amazonaws.com"
-          },
-         "Action": "sts:AssumeRole"
-       }
-     ] 
-   })
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "rds.amazonaws.com"
+        },
+        "Action" : "sts:AssumeRole"
+      }
+    ]
+  })
 
   tags = local.tags
 }

@@ -22,5 +22,5 @@ resource "aws_iam_policy" "cporacle_describe_db_instances" {
 
 resource "aws_iam_role_policy_attachment" "cporacle_describe_db_instances" {
   policy_arn = aws_iam_policy.cporacle_describe_db_instances.arn
-  role       = local.ec2_instance_role_name 
+  role       = local.ec2_instance_role_name
 }
