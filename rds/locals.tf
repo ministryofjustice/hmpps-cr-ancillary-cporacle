@@ -113,5 +113,5 @@ locals {
   rds_apply_immediately                   = var.rds_apply_immediately
 
   rds_db_identity = "admin"
-  rds_db_password = "rgefdberfbtrebn134345"
+  rds_db_password = ""
 }
